@@ -1,0 +1,43 @@
+.body-01 {
+	@apply font-body leading-[160%] text-[12px];
+}
+
+.body-02 {
+	@apply font-body leading-[160%] text-[14px];
+}
+
+.body-03 {
+	@apply font-body leading-[160%] text-[16px];
+}
+
+.heading-01 {
+	@apply font-heading-fixed text-[16px] leading-[160%] font-bold;
+}
+
+.heading-02 {
+	@apply font-heading-fixed text-[20px] leading-[160%] font-bold;
+}
+
+.heading-03 {
+	@apply font-heading-fixed text-[24px] leading-[160%] font-bold;
+}
+
+.heading-responsive-01 {
+	@apply font-heading-responsive text-[28px] md:text-[34px] leading-[140%] font-bold;
+}
+
+.heading-responsive-02 {
+	@apply font-heading-responsive text-[36px] md:text-[42px] leading-[140%] font-bold;
+}
+
+.heading-responsive-03 {
+	@apply font-heading-responsive text-[40px] md:text-[50px] leading-[140%] font-bold;
+}
+
+.link-01 {
+	@apply font-link text-[12px] leading-[160%];
+}
+
+.link-02 {
+	@apply font-link text-[14px] leading-[160%];
+}
