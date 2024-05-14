@@ -1,5 +1,7 @@
 ---
-
+import Config from '../../e-initiative.config.mjs';
+import '../styles/global.css';
+import '../styles/typography.css';
 ---
 
 <html lang="en">
@@ -9,9 +11,27 @@
 		<meta name="viewport" content="width=device-width" />
 		<meta name="generator" content={Astro.generator} />
 		<title>Astro</title>
+		{Config.theme.stylesheets.map((href) => <link {href} rel="stylesheet" />)}
 	</head>
-	<body>
-		<h1>Astro</h1>
+	<body class="body-03">
+		<ul>
+			{
+				[
+					'heading-responsive-01',
+					'heading-responsive-02',
+					'heading-responsive-03',
+					'heading-01',
+					'heading-02',
+					'heading-03',
+					'body-01',
+					'body-02',
+					'body-03',
+					'link-01',
+					'link-02',
+				].map((name) => <li class={name}>{name}</li>)
+			}
+		</ul>
 		<button class="btn btn-primary">button</button>
+		<p>what</p>
 	</body>
 </html>
