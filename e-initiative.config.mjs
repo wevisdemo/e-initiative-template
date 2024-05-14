@@ -1,4 +1,10 @@
 export default {
+	metadata: {
+		title: 'E-Initiative Template',
+		description: 'Customizable template for Thailand E-initiative',
+		siteUrl: 'https://e-initiative-template.pages.dev',
+		previewImageUrl: 'https://e-initiative-template.pages.dev/og.png',
+	},
 	theme: {
 		colors: {
 			primary: '#2E3283',

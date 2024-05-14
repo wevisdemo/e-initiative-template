@@ -1,0 +1,43 @@
+---
+import Config from '../../e-initiative.config.mjs';
+import '../styles/global.css';
+import '../styles/typography.css';
+
+interface Props {
+	title?: string;
+	description?: string;
+	previewImageUrl?: string;
+}
+
+const { props } = Astro;
+
+const title = props.title
+	? `${props.title} - ${Config.metadata.title}`
+	: Config.metadata.title;
+const description = props.description || Config.metadata.description;
+const previewImageUrl =
+	props.previewImageUrl || Config.metadata.previewImageUrl;
+---
+
+<html lang="th">
+	<head>
+		<meta charset="utf-8" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="viewport" content="width=device-width" />
+		<meta name="generator" content={Astro.generator} />
+		<title>{title}</title>
+		<meta property="og:title" content={title} />
+		<meta property="og:description" content={description} />
+		<meta property="og:image" content={previewImageUrl} />
+		<meta property="og:type" content="website" />
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:title" content={title} />
+		<meta name="twitter:description" content={description} />
+		<meta name="twitter:image" content={previewImageUrl} />
+		<meta name="twitter:image:alt" content={title} />
+		{Config.theme.stylesheets.map((href) => <link {href} rel="stylesheet" />)}
+	</head>
+	<body class="body-03">
+		<slot />
+	</body>
+</html>
