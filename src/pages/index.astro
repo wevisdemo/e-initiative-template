@@ -1,25 +1,10 @@
 ---
 import Main from '../layouts/Main.astro';
+import LandingSection from '../components/LandingSection.astro';
 ---
 
 <Main>
-	<ul>
-		{
-			[
-				'heading-responsive-01',
-				'heading-responsive-02',
-				'heading-responsive-03',
-				'heading-01',
-				'heading-02',
-				'heading-03',
-				'body-01',
-				'body-02',
-				'body-03',
-				'link-01',
-				'link-02',
-			].map((name) => <li class={name}>{name}</li>)
-		}
-	</ul>
-	<button class="btn btn-primary">button</button>
-	<p>what</p>
+	<main class="flex flex-col">
+		<LandingSection />
+	</main>
 </Main>

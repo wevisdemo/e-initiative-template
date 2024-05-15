@@ -1,0 +1,14 @@
+---
+interface Props {
+	outerClass?: string;
+	innerClass?: string;
+}
+
+const { outerClass, innerClass } = Astro.props;
+---
+
+<div class={`w-full flex flex-col items-center px-3 ${outerClass || ''}`}>
+	<div class={`max-w-screen-xl ${innerClass || ''}`}>
+		<slot />
+	</div>
+</div>

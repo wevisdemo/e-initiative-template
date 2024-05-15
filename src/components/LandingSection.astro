@@ -1,0 +1,58 @@
+---
+import Config from '../../e-initiative.config.mjs';
+import SectionContainer from './SectionContainer.astro';
+import PenIcon from '../icons/PenIcon.svelte';
+import LocationIcon from '../icons/LocationIcon.svelte';
+import TableIcon from '../icons/TableIcon.svelte';
+let documentCount = 1234;
+---
+
+<SectionContainer
+	outerClass="min-h-screen justify-center"
+	innerClass="flex flex-col md:flex-row text-center gap-16"
+>
+	<div class="flex flex-col justify-center items-center">
+		<h1 class="heading-responsive-03">{Config.metadata.title}</h1>
+		<p>{Config.metadata.description}</p>
+		<img
+			class="w-[180px] md:w-[280px] max-w-[280px] mt-4"
+			src="https://placehold.co/280x280"
+			alt=""
+		/>
+	</div>
+	<div class="flex flex-col w-full max-w-md space-y-2">
+		<p class="mt-1">ต้องการ xxx รายชื่อ</p>
+		<p class="heading-responsive-02">
+			ลงแล้ว {
+				new Intl.NumberFormat('th-TH', {
+					maximumSignificantDigits: 4,
+				}).format(documentCount)
+			} คน
+		</p>
+		<p>ภายใน xxx (จำนวนวัน/วันสุดท้าย)</p>
+		<p class="body-01-normal opacity-50">
+			อัปเดตข้อมูล {
+				new Date().toLocaleDateString('TH-th', {
+					dateStyle: 'medium',
+				})
+			}
+		</p>
+		<div class="space-y-2">
+			<button class="btn btn-block btn-primary text-base-100 heading-03">
+				ลงชื่อเลย
+				<PenIcon />
+			</button>
+			<button class="btn btn-block btn-secondary heading-03">
+				ดูสถานที่ลงชื่อ
+				<LocationIcon />
+			</button>
+			<button class="btn btn-block btn-secondary heading-03">
+				อาสาล่ารายชื่อ
+				<TableIcon />
+			</button>
+			<a class="btn btn-block btn-link hover:text-accent heading-03"
+				>ทำไมต้องลงชื่อ</a
+			>
+		</div>
+	</div>
+</SectionContainer>
