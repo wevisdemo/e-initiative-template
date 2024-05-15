@@ -11,15 +11,15 @@
 }
 
 .heading-01 {
-	@apply font-heading-fixed text-[16px] leading-[160%] font-bold;
+	@apply font-heading-fixed text-[12px] leading-[160%] font-bold;
 }
 
 .heading-02 {
-	@apply font-heading-fixed text-[20px] leading-[160%] font-bold;
+	@apply font-heading-fixed text-[14px] leading-[160%] font-bold;
 }
 
 .heading-03 {
-	@apply font-heading-fixed text-[24px] leading-[160%] font-bold;
+	@apply font-heading-fixed text-[16px] leading-[160%] font-bold;
 }
 
 .heading-responsive-01 {
