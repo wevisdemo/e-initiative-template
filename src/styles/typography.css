@@ -1,25 +1,25 @@
 .body-01 {
-	@apply font-body leading-[160%] text-[12px];
-}
-
-.body-02 {
 	@apply font-body leading-[160%] text-[14px];
 }
 
-.body-03 {
+.body-02 {
 	@apply font-body leading-[160%] text-[16px];
 }
 
-.heading-01 {
-	@apply font-heading-fixed text-[12px] leading-[160%] font-bold;
+.body-03 {
+	@apply font-body leading-[160%] text-[18px];
 }
 
-.heading-02 {
+.heading-01 {
 	@apply font-heading-fixed text-[14px] leading-[160%] font-bold;
 }
 
-.heading-03 {
+.heading-02 {
 	@apply font-heading-fixed text-[16px] leading-[160%] font-bold;
+}
+
+.heading-03 {
+	@apply font-heading-fixed text-[18px] leading-[160%] font-bold;
 }
 
 .heading-responsive-01 {
