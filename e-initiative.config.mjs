@@ -5,6 +5,10 @@ export default {
 		siteUrl: 'https://e-initiative-template.pages.dev',
 		previewImageUrl: 'https://e-initiative-template.pages.dev/og.png',
 	},
+	pettition: {
+		endDate: new Date('2024-10-10 GMT+7'),
+		expectedSignatures: 10000,
+	},
 	theme: {
 		colors: {
 			primary: '#2E3283',
