@@ -7,8 +7,10 @@ interface Props {
 const { outerClass, innerClass } = Astro.props;
 ---
 
-<div class={`w-full flex flex-col items-center px-3 ${outerClass || ''}`}>
-	<div class={`max-w-screen-xl ${innerClass || ''}`}>
+<div
+	class={`w-full flex flex-col items-center px-3 py-12 md:py-24 ${outerClass || ''}`}
+>
+	<div class={innerClass}>
 		<slot />
 	</div>
 </div>
