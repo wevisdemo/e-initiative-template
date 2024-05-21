@@ -1,0 +1,28 @@
+---
+import SectionContainer from './SectionContainer.astro';
+import SignOptions from './SignOptions.svelte';
+---
+
+<SectionContainer
+	outerClass="bg-primary"
+	innerClass="w-full max-w-screen-lg flex flex-col md:flex-row gap-6 md:gap-12"
+>
+	<div class="w-full max-w-sm flex flex-col gap-4 text-base-100">
+		<h2 class="heading-responsive-02 text-center md:text-left">ร่วมลงชื่อ</h2>
+		<p class="text-center md:text-left">
+			(optional) Lorem ipsum dolor sit amet consectetur. Ut adipiscing risus
+			nibh consectetur.
+		</p>
+		<div class="rounded-lg border-base-100 border px-4 py-3 space-y-2">
+			<span class="font-bold">คุณสมบัติของผู้เข้าชื่อเสนอกฎหมาย</span>
+			<ul class="list-disc list-outside ml-7">
+				<li>
+					เป็นคนไทยที่มีสิทธิเลือกตั้ง (อายุ 18 ปีขึ้นไป) ในวันที่เข้าชื่อฯ
+				</li>
+				<li>ไม่เป็นบุคคลต้องห้ามใช้สิทธิเลือกตั้ง</li>
+			</ul>
+		</div>
+	</div>
+
+	<SignOptions client:visible />
+</SectionContainer>
