@@ -1,0 +1,3 @@
+<p class="p-2 font-semibold bg-base-200 rounded-lg text-center">
+	ที่อยู่ บ้านเลขที่ ...
+</p>

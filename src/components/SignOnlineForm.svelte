@@ -66,7 +66,7 @@
 	}
 </script>
 
-<form use:form class="form-control w-full bg-white rounded-sm p-4">
+<form use:form class="form-control w-full">
 	<ValidationMessage for="location" let:messages>
 		<label class="label" for="location">
 			<span class="label-text body-03 font-bold">เขียนที่*</span>
