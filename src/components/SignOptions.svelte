@@ -5,13 +5,14 @@
 	import CardContainer from './CardContainer.svelte';
 	import StepBlock from './StepBlock.svelte';
 	import PostAddress from './PostAddress.svelte';
+	import HeadquarterMap from './HeadquarterMap.svelte';
 
 	enum Channels {
 		Online = 'แบบออนไลน์',
 		Offline = 'แบบกระดาษ',
 	}
 
-	let selectedChannel: Channels = Channels.Offline;
+	let selectedChannel: Channels = Channels.Online;
 </script>
 
 <div class="flex-1 flex flex-col gap-6">
@@ -75,17 +76,11 @@
 							>ภายในวันที่ 25 ส.ค.</span
 						></svelte:fragment
 					>
-					<div class="grid gap-1">
+					<div class="space-y-2">
 						<p>3.1. นำส่งด้วยตัวเอง</p>
-						<iframe
-							title="แผนที่"
-							src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3873.298251120154!2d100.56221937605227!3d13.881106394284691!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x30e28323d10290b5%3A0x946e22bc8754445a!2sOffice%20of%20Election%20Commission%20of%20Thailand!5e0!3m2!1sen!2sth!4v1716288187164!5m2!1sen!2sth"
-							class="w-full h-96"
-							loading="lazy"
-							referrerpolicy="no-referrer"
-						></iframe>
+						<HeadquarterMap />
 					</div>
-					<div class="grid gap-1">
+					<div class="space-y-2">
 						<p>3.2. ส่งไปรษณีย์ (ต้องใช้บริการไปรษณีย์ไทยเท่านั้น)</p>
 						<PostAddress />
 					</div>
