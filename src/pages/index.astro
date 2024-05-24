@@ -1,5 +1,6 @@
 ---
 import Main from '../layouts/Main.astro';
+import Navbar from '../components/Navbar.astro';
 import LandingSection from '../components/LandingSection.astro';
 import IntroSection from '../components/IntroSection.astro';
 import SignSection from '../components/SignSection.astro';
@@ -9,6 +10,7 @@ import AboutSection from '../components/AboutSection.astro';
 
 <Main>
 	<main class="flex flex-col">
+		<Navbar />
 		<LandingSection />
 		<IntroSection />
 		<SignSection />

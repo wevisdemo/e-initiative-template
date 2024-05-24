@@ -1,0 +1,26 @@
+---
+import PenIcon from '../icons/PenIcon.svelte';
+import Sharer from './Sharer.astro';
+---
+
+<div
+	class="w-screen fixed bottom-0 z-50 px-4 shadow-xl bg-white"
+	style="box-shadow: 0px 16px 48px 0px #0000002D;"
+>
+	<div
+		class="w-full max-w-screen-lg mx-auto flex justify-between items-center py-2 md:py-4 text-primary"
+	>
+		<div class="flex items-center">
+			<span class="hidden md:block heading-03 mr-[12px]">แชร์ให้เพื่อน</span>
+			<Sharer />
+		</div>
+		<div class="max-w-[158px] md:max-w-[240px] flex-1">
+			<a href="/locations">
+				<button
+					class="btn btn-primary text-base-100 btn-block heading-03 font-bold"
+					>ลงชื่อเลย <PenIcon />
+				</button>
+			</a>
+		</div>
+	</div>
+</div>
