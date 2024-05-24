@@ -6,23 +6,23 @@ import PettitionOverview from './PettitionOverview.svelte';
 
 <SectionContainer
 	outerClass="min-h-screen justify-center"
-	innerClass="flex flex-col md:flex-row text-center gap-16"
+	innerClass="flex flex-col gap-16 text-center md:flex-row"
 >
-	<div class="flex flex-col justify-center items-center">
+	<div class="flex flex-col items-center justify-center">
 		<h1 class="heading-responsive-03">{Config.metadata.title}</h1>
 		<p>{Config.metadata.description}</p>
 		<img
-			class="w-[180px] md:w-[280px] max-w-[280px] mt-4"
+			class="mt-4 w-[180px] max-w-[280px] md:w-[280px]"
 			src="https://placehold.co/280x280"
 			alt=""
 		/>
 	</div>
-	<div class="flex flex-col w-full max-w-md space-y-2 my-auto">
+	<div class="my-auto flex w-full max-w-md flex-col space-y-2">
 		<p class="mt-1">
 			ต้องการ {Config.pettition.expectedSignatures.toLocaleString()} รายชื่อ
 		</p>
 		<PettitionOverview client:load />
-		<a class="btn btn-block btn-link hover:text-accent heading-03"
+		<a class="heading-03 btn btn-link btn-block hover:text-accent"
 			>ทำไมต้องลงชื่อ</a
 		>
 	</div>

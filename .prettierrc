@@ -3,5 +3,20 @@
 	"tabWidth": 2,
 	"semi": true,
 	"singleQuote": true,
-	"trailingComma": "all"
+	"trailingComma": "all",
+	"plugins": [
+		"prettier-plugin-astro",
+		"prettier-plugin-svelte",
+		"prettier-plugin-tailwindcss"
+	],
+	"tailwindAttributes": ["outerClass", "innerClass"],
+	"overrides": [
+		{
+			"files": "*.astro",
+			"options": {
+				"parser": "astro"
+			}
+		},
+		{ "files": "*.svelte", "options": { "parser": "svelte" } }
+	]
 }
