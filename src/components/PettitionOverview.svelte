@@ -37,21 +37,21 @@
 	</p>
 	{#if isCampaignEnded}
 		<div class="flex flex-row items-center gap-2">
-			<div class="flex-1 h-[2px] bg-secondary" />
-			<p class="text-secondary font-bold">ปิดรับลงชื่อแล้ว</p>
-			<div class="flex-1 h-[2px] bg-secondary" />
+			<div class="h-[2px] flex-1 bg-secondary" />
+			<p class="font-bold text-secondary">ปิดรับลงชื่อแล้ว</p>
+			<div class="h-[2px] flex-1 bg-secondary" />
 		</div>
 	{:else}
 		<div class="space-y-2">
-			<button class="btn btn-block btn-primary text-base-100 heading-03">
+			<button class="heading-03 btn btn-primary btn-block text-base-100">
 				ลงชื่อเลย
 				<PenIcon />
 			</button>
-			<button class="btn btn-block btn-secondary heading-03">
+			<button class="heading-03 btn btn-secondary btn-block">
 				ดูสถานที่ลงชื่อ
 				<LocationIcon />
 			</button>
-			<button class="btn btn-block btn-secondary heading-03">
+			<button class="heading-03 btn btn-secondary btn-block">
 				อาสาล่ารายชื่อ
 				<TableIcon />
 			</button>

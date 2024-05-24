@@ -15,11 +15,11 @@
 	let selectedChannel: Channels = Channels.Online;
 </script>
 
-<div class="flex-1 flex flex-col gap-6">
+<div class="flex flex-1 flex-col gap-6">
 	<div class="join">
 		{#each Object.values(Channels) as option}
 			<input
-				class="join-item btn flex-1 !bg-base-100 !text-primary !border-base-100 opacity-50 checked:opacity-100 heading-03"
+				class="heading-03 btn join-item flex-1 !border-base-100 !bg-base-100 !text-primary opacity-50 checked:opacity-100"
 				type="radio"
 				name="channel"
 				aria-label={option}
@@ -34,12 +34,12 @@
 			<SignOnlineForm />
 		</CardContainer>
 	{:else}
-		<div class="space-y-3 body-02-normal">
+		<div class="body-02-normal space-y-3">
 			<CardContainer class="space-y-3">
 				<p class="heading-03">วิธีที่ 1 : เดินทางไปลงชื่อที่จุดตั้งโต๊ะ</p>
 				<a
 					href="/locations"
-					class="btn btn-block btn-primary text-[16px] normal-case heading-03 text-base-100"
+					class="heading-03 btn btn-primary btn-block text-[16px] normal-case text-base-100"
 				>
 					ดูสถานที่ลงชื่อ <LocationIcon />
 				</a>
@@ -54,7 +54,7 @@
 					<a
 						target="_blank"
 						href="/#"
-						class="btn btn-block btn-primary text-[16px] normal-case heading-03 text-base-100"
+						class="heading-03 btn btn-primary btn-block text-[16px] normal-case text-base-100"
 					>
 						ดาวน์โหลดแบบฟอร์ม <DocumentIcon />
 					</a>

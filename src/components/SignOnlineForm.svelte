@@ -69,7 +69,7 @@
 <form use:form class="form-control w-full">
 	<ValidationMessage for="location" let:messages>
 		<label class="label" for="location">
-			<span class="label-text body-03 font-bold">เขียนที่*</span>
+			<span class="body-03 label-text font-bold">เขียนที่*</span>
 		</label>
 		<input
 			type="string"
@@ -85,7 +85,7 @@
 	</ValidationMessage>
 	<ValidationMessage for="id" let:messages>
 		<label class="label" for="id">
-			<span class="label-text body-03 font-bold">เลขประจำตัวประชาชน*</span>
+			<span class="body-03 label-text font-bold">เลขประจำตัวประชาชน*</span>
 		</label>
 		<input
 			type="string"
@@ -102,10 +102,10 @@
 	<div class="flex flex-row space-x-[10px]">
 		<div class="form-control">
 			<label class="label" for="prefix">
-				<span class="label-text body-03 font-bold">คำนำหน้า</span>
+				<span class="body-03 label-text font-bold">คำนำหน้า</span>
 			</label>
 			<select
-				class="select rounded-sm max-w-xs bg-base-200"
+				class="select max-w-xs rounded-sm bg-base-200"
 				disabled={isLoading}
 				name="prefix"
 			>
@@ -118,12 +118,12 @@
 		<div class="form-control flex-1">
 			<ValidationMessage for="firstname" let:messages>
 				<label class="label" for="firstname">
-					<span class="label-text body-03 font-bold">ชื่อ*</span>
+					<span class="body-03 label-text font-bold">ชื่อ*</span>
 				</label>
 				<input
 					type="text"
 					name="firstname"
-					class="input rounded-sm bg-base-200 w-full {messages
+					class="input w-full rounded-sm bg-base-200 {messages
 						? 'input-error'
 						: ''}"
 					disabled={isLoading}
@@ -138,7 +138,7 @@
 	</div>
 	<ValidationMessage for="lastname" let:messages>
 		<label class="label" for="lastname">
-			<span class="label-text body-03 font-bold">นามสกุล*</span>
+			<span class="body-03 label-text font-bold">นามสกุล*</span>
 		</label>
 		<input
 			type="text"
@@ -154,11 +154,11 @@
 	</ValidationMessage>
 	<div class="form-control">
 		<div class="label">
-			<span class="label-text body-03 font-bold">ลงลายมือชื่อ*</span>
+			<span class="body-03 label-text font-bold">ลงลายมือชื่อ*</span>
 		</div>
 		<div class="relative">
 			<canvas
-				class="bg-base-200 h-[258px] w-full rounded-sm {!signatureEnabled ||
+				class="h-[258px] w-full rounded-sm bg-base-200 {!signatureEnabled ||
 				isLoading
 					? 'pointer-events-none'
 					: ''}"
@@ -167,18 +167,18 @@
 			{#if signatureEnabled}
 				<button
 					type="button"
-					class="btn btn-outline btn-accent absolute right-[10px] bottom-4"
+					class="btn btn-accent btn-outline absolute bottom-4 right-[10px]"
 					on:click={clearPad}
 				>
 					ล้าง <ResetIcon />
 				</button>
 			{:else}
 				<div
-					class="absolute w-full h-full flex justify-center items-center top-0 left-0"
+					class="absolute left-0 top-0 flex h-full w-full items-center justify-center"
 				>
 					<button
 						type="button"
-						class="btn bg-base-100 body-03 font-bold shadow-xl"
+						class="body-03 btn bg-base-100 font-bold shadow-xl"
 						on:click={() => (signatureEnabled = true)}
 					>
 						คลิกเพื่อกรอกลายเซ็น
@@ -194,8 +194,8 @@
 		</ValidationMessage>
 	</div>
 	<div class="form-control">
-		<label class="label cursor-pointer space-x-2 justify-normal">
-			<input type="checkbox" name="consent" class="checkbox checkbox-primary" />
+		<label class="label cursor-pointer justify-normal space-x-2">
+			<input type="checkbox" name="consent" class="checkbox-primary checkbox" />
 			<span class="label-text"
 				>ข้าพเจ้ายินยอมลงชื่อ <a href="/privacy-policy" class="underline"
 					>อ่านนโยบายการคุ้มครองข้อมูลส่วนบุคคล</a
@@ -205,7 +205,7 @@
 	</div>
 	<button
 		type="submit"
-		class="btn btn-primary w-full mt-2 body-03 font-bold text-base text-base-100 disabled:text-base-100"
+		class="body-03 btn btn-primary mt-2 w-full text-base font-bold text-base-100 disabled:text-base-100"
 		disabled={!$data.consent || isLoading}
 	>
 		{#if !isLoading}
@@ -220,7 +220,7 @@
 
 <dialog bind:this={successDialog} class="modal modal-bottom sm:modal-middle">
 	<form method="dialog" class="modal-box flex flex-col">
-		<div class="flex flex-row gap-1 items-center justify-center">
+		<div class="flex flex-row items-center justify-center gap-1">
 			<span class="text-success"><CheckmarkIcon /></span>
 			<span>ลงชื่อสำเร็จ!</span>
 		</div>

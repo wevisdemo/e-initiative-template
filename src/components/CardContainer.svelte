@@ -1,3 +1,3 @@
-<div class="p-4 bg-base-100 rounded-sm {$$restProps.class}">
+<div class="rounded-sm bg-base-100 p-4 {$$restProps.class}">
 	<slot />
 </div>
