@@ -1,26 +1,30 @@
 ---
 import PenIcon from '../icons/PenIcon.svelte';
 import Sharer from './Sharer.astro';
+import { isCampaignEnded } from '../utils/campaign';
 ---
 
 <div
-	class="fixed bottom-0 z-50 w-screen bg-white px-4 shadow-xl"
+	class="sticky inset-x-0 bottom-0 z-50 bg-white px-4 shadow-xl"
 	style="box-shadow: 0px 16px 48px 0px #0000002D;"
 >
 	<div
-		class="mx-auto flex w-full max-w-screen-lg items-center justify-between py-2 text-primary md:py-4"
+		class={`mx-auto flex w-full max-w-screen-lg items-center py-2 text-primary md:py-4 ${isCampaignEnded ? 'justify-center' : 'justify-between'}`}
 	>
 		<div class="flex items-center">
 			<span class="heading-03 mr-[12px] hidden md:block">แชร์ให้เพื่อน</span>
 			<Sharer />
 		</div>
-		<div class="max-w-[158px] flex-1 md:max-w-[240px]">
-			<a href="/locations">
-				<button
-					class="heading-03 btn btn-primary btn-block font-bold text-base-100"
-					>ลงชื่อเลย <PenIcon />
-				</button>
-			</a>
-		</div>
+		{
+			!isCampaignEnded && (
+				<div class="max-w-[158px] flex-1 md:max-w-[240px]">
+					<a href="/locations">
+						<button class="heading-03 btn btn-primary btn-block font-bold text-base-100">
+							ลงชื่อเลย <PenIcon />
+						</button>
+					</a>
+				</div>
+			)
+		}
 	</div>
 </div>

@@ -6,15 +6,22 @@ import IntroSection from '../components/IntroSection.astro';
 import SignSection from '../components/SignSection.astro';
 import VolunteerSection from '../components/VolunteerSection.astro';
 import AboutSection from '../components/AboutSection.astro';
+import { isCampaignEnded } from '../utils/campaign';
 ---
 
 <Body>
 	<main class="flex flex-col">
-		<Navbar />
 		<LandingSection />
 		<IntroSection />
-		<SignSection />
-		<VolunteerSection />
+		{
+			!isCampaignEnded && (
+				<>
+					<SignSection />
+					<VolunteerSection />
+				</>
+			)
+		}
 		<AboutSection />
+		<Navbar />
 	</main>
 </Body>
