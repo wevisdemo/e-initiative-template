@@ -1,15 +1,13 @@
 ---
-import dayjs from 'dayjs';
 import Config from '../../e-initiative.config.mjs';
 import SectionContainer from './SectionContainer.astro';
 import PenIcon from '../icons/PenIcon.svelte';
 import LocationIcon from '../icons/LocationIcon.svelte';
 import TableIcon from '../icons/TableIcon.svelte';
+import { dayElapsed, isCampaignEnded } from '../utils/campaign';
 
 // TODO: Link with data source
 const documentCount = 1234;
-const dayElapsed = Math.abs(dayjs().diff(Config.pettition.endDate, 'days'));
-const isCampaignEnded = dayjs().isAfter(Config.pettition.endDate);
 ---
 
 <SectionContainer
