@@ -3,10 +3,11 @@
 	import { createForm } from 'felte';
 	import { reporter, ValidationMessage } from '@felte/reporter-svelte';
 	import SignaturePad from 'signature_pad';
+	import { Value } from '@sinclair/typebox/value';
 	import PenIcon from '../icons/PenIcon.svelte';
 	import ResetIcon from '../icons/ResetIcon.svelte';
 	import CheckmarkIcon from '../icons/CheckmarkIcon.svelte';
-	// import { flatten, parse, ValiError } from 'valibot';
+	import { formTable, MAX_LOCATION_LENGTH } from '../models/form';
 
 	let signatureCanvas: HTMLCanvasElement;
 	let signaturePad: SignaturePad;
@@ -17,15 +18,13 @@
 	let isLoading = false;
 
 	const { form, setTouched, setData, data, reset } = createForm({
-		validate(values) {
-			// TODO: validate input
-			// try {
-			// 	parse(documentSchema, values);
-			// } catch (e) {
-			// 	return flatten(e as ValiError).nested;
-			// }
-			return {};
-		},
+		validate: (values) =>
+			Object.fromEntries(
+				[...Value.Errors(formTable, values)].map((e) => [
+					e.path.replace('/', ''),
+					e.message,
+				]),
+			),
 		async onSubmit(values) {
 			isLoading = true;
 			try {
@@ -79,17 +78,17 @@
 		/>
 		<div class="label">
 			<span class="body-01 {messages ? 'text-error' : ''}"
-				>ระบุสถานที่กรอกข้อมูลเช่น จังหวัด (ไม่เกิน xx ตัวอักษร)</span
+				>ระบุสถานที่กรอกข้อมูลเช่น จังหวัด (ไม่เกิน {MAX_LOCATION_LENGTH} ตัวอักษร)</span
 			>
 		</div>
 	</ValidationMessage>
-	<ValidationMessage for="id" let:messages>
-		<label class="label" for="id">
+	<ValidationMessage for="citizenId" let:messages>
+		<label class="label" for="citizenId">
 			<span class="body-03 label-text font-bold">เลขประจำตัวประชาชน*</span>
 		</label>
 		<input
 			type="string"
-			name="id"
+			name="citizenId"
 			class="input rounded-sm bg-base-200 {messages ? 'input-error' : ''}"
 			disabled={isLoading}
 		/>
@@ -152,47 +151,51 @@
 			>
 		</div>
 	</ValidationMessage>
-	<div class="form-control">
-		<div class="label">
-			<span class="body-03 label-text font-bold">ลงลายมือชื่อ*</span>
-		</div>
-		<div class="relative">
-			<canvas
-				class="h-[258px] w-full rounded-sm bg-base-200 {!signatureEnabled ||
-				isLoading
-					? 'pointer-events-none'
+	<ValidationMessage for="signature" let:messages>
+		<div class="form-control">
+			<div class="label">
+				<span class="body-03 label-text font-bold">ลงลายมือชื่อ*</span>
+			</div>
+			<div
+				class="relative rounded-sm bg-base-200 {messages
+					? 'border border-error'
 					: ''}"
-				bind:this={signatureCanvas}
-			/>
-			{#if signatureEnabled}
-				<button
-					type="button"
-					class="btn btn-accent btn-outline absolute bottom-4 right-[10px]"
-					on:click={clearPad}
-				>
-					ล้าง <ResetIcon />
-				</button>
-			{:else}
-				<div
-					class="absolute left-0 top-0 flex h-full w-full items-center justify-center"
-				>
+			>
+				<canvas
+					class="h-[258px] w-full {!signatureEnabled || isLoading
+						? 'pointer-events-none'
+						: ''}"
+					bind:this={signatureCanvas}
+				/>
+				{#if signatureEnabled}
 					<button
 						type="button"
-						class="body-03 btn bg-base-100 font-bold shadow-xl"
-						on:click={() => (signatureEnabled = true)}
+						class="btn btn-accent btn-outline absolute bottom-4 right-[10px]"
+						on:click={clearPad}
 					>
-						คลิกเพื่อกรอกลายเซ็น
-						<PenIcon />
+						ล้าง <ResetIcon />
 					</button>
-				</div>
-			{/if}
-		</div>
-		<ValidationMessage for="signature" let:messages>
-			<div class="label">
-				<span class="body-01 text-error">{messages || ''}</span>
+				{:else}
+					<div
+						class="absolute left-0 top-0 flex h-full w-full items-center justify-center"
+					>
+						<button
+							type="button"
+							class="body-03 btn bg-base-100 font-bold shadow-xl"
+							on:click={() => (signatureEnabled = true)}
+						>
+							คลิกเพื่อกรอกลายเซ็น
+							<PenIcon />
+						</button>
+					</div>
+				{/if}
 			</div>
-		</ValidationMessage>
-	</div>
+
+			<div class="label">
+				<span class="body-01 text-error">{messages ? 'กรุณาลงชื่อ' : ''}</span>
+			</div>
+		</div>
+	</ValidationMessage>
 	<div class="form-control">
 		<label class="label cursor-pointer justify-normal space-x-2">
 			<input type="checkbox" name="consent" class="checkbox-primary checkbox" />
