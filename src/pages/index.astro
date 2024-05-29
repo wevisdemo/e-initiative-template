@@ -1,4 +1,5 @@
 ---
+import Config from '../../e-initiative.config.mjs';
 import Body from '../layouts/Body.astro';
 import Navbar from '../components/Navbar.astro';
 import LandingSection from '../components/LandingSection.astro';
@@ -17,7 +18,7 @@ import { isCampaignEnded } from '../utils/campaign';
 			!isCampaignEnded && (
 				<>
 					<SignSection />
-					<VolunteerSection />
+					{Config.pettition.offline.volunteer && <VolunteerSection />}
 				</>
 			)
 		}
