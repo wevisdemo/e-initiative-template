@@ -1,3 +1,7 @@
+<script>
+	import Config from '../../e-initiative.config.mjs';
+</script>
+
 <p class="rounded-lg bg-base-200 p-2 text-center font-semibold">
-	ที่อยู่ บ้านเลขที่ ...
+	{Config.pettition.offline.headquarter.address}
 </p>

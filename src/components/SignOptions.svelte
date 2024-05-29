@@ -1,4 +1,5 @@
 <script lang="ts">
+	import Config from '../../e-initiative.config.mjs';
 	import SignOnlineForm from './SignOnlineForm.svelte';
 	import LocationIcon from '../icons/LocationIcon.svelte';
 	import DocumentIcon from '../icons/DocumentIcon.svelte';
@@ -16,18 +17,20 @@
 </script>
 
 <div class="flex flex-1 flex-col gap-6">
-	<div class="join">
-		{#each Object.values(Channels) as option}
-			<input
-				class="heading-03 btn join-item flex-1 !border-base-100 !bg-base-100 !text-primary opacity-50 checked:opacity-100"
-				type="radio"
-				name="channel"
-				aria-label={option}
-				value={option}
-				bind:group={selectedChannel}
-			/>
-		{/each}
-	</div>
+	{#if Config.pettition.offline}
+		<div class="join">
+			{#each Object.values(Channels) as option}
+				<input
+					class="heading-03 btn join-item flex-1 !border-base-100 !bg-base-100 !text-primary opacity-50 checked:opacity-100"
+					type="radio"
+					name="channel"
+					aria-label={option}
+					value={option}
+					bind:group={selectedChannel}
+				/>
+			{/each}
+		</div>
+	{/if}
 
 	{#if selectedChannel === Channels.Online}
 		<CardContainer>
@@ -53,7 +56,7 @@
 					>
 					<a
 						target="_blank"
-						href="/#"
+						href={Config.pettition.offline.formUrl}
 						class="heading-03 btn btn-primary btn-block text-[16px] normal-case text-base-100"
 					>
 						ดาวน์โหลดแบบฟอร์ม <DocumentIcon />
@@ -66,14 +69,19 @@
 					<p>ชวนคนใกล้ๆ ตัวมาร่วมลงชื่อให้เต็มแผ่นเลยก็ได้</p>
 					<img
 						class="mx-auto"
-						src="https://placehold.co/280x397?text=example"
+						src={Config.pettition.offline.formExampleImageUrl}
 						alt=""
 					/>
 				</StepBlock>
 				<StepBlock>
 					<svelte:fragment slot="heading"
-						>3. ส่งเอกสารรวบรวมรายชื่อมายัง [สถานที่] <span class="text-error"
-							>ภายในวันที่ 25 ส.ค.</span
+						>3. ส่งเอกสารรวบรวมรายชื่อมายัง {Config.pettition.offline
+							.headquarter.name}
+						<span class="text-error"
+							>ภายในวันที่ {Config.pettition.endDate.toLocaleDateString(
+								'TH-th',
+								{ dateStyle: 'medium' },
+							)}</span
 						></svelte:fragment
 					>
 					<div class="space-y-2">
@@ -81,7 +89,7 @@
 						<HeadquarterMap />
 					</div>
 					<div class="space-y-2">
-						<p>3.2. ส่งไปรษณีย์ (ต้องใช้บริการไปรษณีย์ไทยเท่านั้น)</p>
+						<p>3.2. ส่งไปรษณีย์</p>
 						<PostAddress />
 					</div>
 				</StepBlock>
