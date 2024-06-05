@@ -1,4 +1,4 @@
-import { Table, Column } from 'sheethuahua';
+import { Table, Column, type RowType } from 'sheethuahua';
 
 export const MAX_LOCATION_LENGTH = 20;
 
@@ -10,3 +10,5 @@ export const formTable = Table({
 	lastname: Column.String({ minLength: 1 }),
 	signature: Column.String({ minLength: 1 }),
 });
+
+export type FormDocument = RowType<typeof formTable>;

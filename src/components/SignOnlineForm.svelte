@@ -8,6 +8,7 @@
 	import ResetIcon from '../icons/ResetIcon.svelte';
 	import CheckmarkIcon from '../icons/CheckmarkIcon.svelte';
 	import { formTable, MAX_LOCATION_LENGTH } from '../models/form';
+	import { submitDocument } from '../utils/firebase';
 
 	let signatureCanvas: HTMLCanvasElement;
 	let signaturePad: SignaturePad;
@@ -28,8 +29,11 @@
 		async onSubmit(values) {
 			isLoading = true;
 			try {
-				// TODO: Submit to database
-				// await submitDocument(parse(documentSchema, values));
+				if (!Value.Check(formTable, values)) {
+					throw [...Value.Errors(formTable, values)];
+				}
+
+				await submitDocument(values);
 				successDialog.showModal();
 				clearPad();
 				reset();

@@ -5,9 +5,9 @@ import PenIcon from '../icons/PenIcon.svelte';
 import LocationIcon from '../icons/LocationIcon.svelte';
 import TableIcon from '../icons/TableIcon.svelte';
 import { dayElapsed, isCampaignEnded } from '../utils/campaign';
+import { countSubmittedDocuments } from '../utils/firebase';
 
-// TODO: Link with data source
-const documentCount = 1234;
+const documentCount = await countSubmittedDocuments();
 ---
 
 <SectionContainer
