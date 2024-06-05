@@ -1,5 +1,6 @@
 {
 	"projects": {
-		"default": "e-initiative-template"
+		"local": "demo-e-initiative-template",
+		"prod": "e-initiative-template"
 	}
 }

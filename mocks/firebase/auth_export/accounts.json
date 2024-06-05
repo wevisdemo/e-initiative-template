@@ -1,0 +1,29 @@
+{
+	"kind": "identitytoolkit#DownloadAccountResponse",
+	"users": [
+		{
+			"localId": "YgRaeJye4kPkQgwqswFNl6iQkdwy",
+			"lastLoginAt": "1717580132880",
+			"displayName": "",
+			"photoUrl": "",
+			"emailVerified": true,
+			"email": "admin@wevis.info",
+			"salt": "fakeSalt6iOBOZCWJDw5lZWv5QR5",
+			"passwordHash": "fakeHash:salt=fakeSalt6iOBOZCWJDw5lZWv5QR5:password=FOR_TESTING_ONLY",
+			"passwordUpdatedAt": 1717580132881,
+			"validSince": "1717580132",
+			"mfaInfo": [],
+			"createdAt": "1717580132880",
+			"providerUserInfo": [
+				{
+					"providerId": "password",
+					"email": "admin@wevis.info",
+					"federatedId": "admin@wevis.info",
+					"rawId": "admin@wevis.info",
+					"displayName": "",
+					"photoUrl": ""
+				}
+			]
+		}
+	]
+}
