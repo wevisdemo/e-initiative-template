@@ -3,17 +3,13 @@
 	"users": [
 		{
 			"localId": "YgRaeJye4kPkQgwqswFNl6iQkdwy",
-			"lastLoginAt": "1717580132880",
+			"createdAt": "1717580132880",
+			"lastLoginAt": "1718016251423",
 			"displayName": "",
 			"photoUrl": "",
-			"emailVerified": true,
-			"email": "admin@wevis.info",
-			"salt": "fakeSalt6iOBOZCWJDw5lZWv5QR5",
 			"passwordHash": "fakeHash:salt=fakeSalt6iOBOZCWJDw5lZWv5QR5:password=FOR_TESTING_ONLY",
-			"passwordUpdatedAt": 1717580132881,
-			"validSince": "1717580132",
-			"mfaInfo": [],
-			"createdAt": "1717580132880",
+			"salt": "fakeSalt6iOBOZCWJDw5lZWv5QR5",
+			"passwordUpdatedAt": 1718016156256,
 			"providerUserInfo": [
 				{
 					"providerId": "password",
@@ -23,7 +19,18 @@
 					"displayName": "",
 					"photoUrl": ""
 				}
-			]
+			],
+			"validSince": "1718016156",
+			"email": "admin@wevis.info",
+			"emailVerified": true,
+			"disabled": false,
+			"lastRefreshAt": "2024-06-10T10:44:11.424Z"
+		},
+		{
+			"localId": "yWNN2CxvXa8MkM9SOf5t7bLHSLTE",
+			"lastLoginAt": "1718016235989",
+			"createdAt": "1718016235989",
+			"lastRefreshAt": "2024-06-10T10:43:55.989Z"
 		}
 	]
 }
