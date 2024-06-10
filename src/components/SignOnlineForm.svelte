@@ -9,6 +9,7 @@
 	import CheckmarkIcon from '../icons/CheckmarkIcon.svelte';
 	import { formTable, MAX_LOCATION_LENGTH } from '../models/form';
 	import { submitDocument } from '../utils/firebase';
+	import { validateCitizenId } from '../utils/validater';
 
 	let signatureCanvas: HTMLCanvasElement;
 	let signaturePad: SignaturePad;
@@ -19,13 +20,20 @@
 	let isLoading = false;
 
 	const { form, setTouched, setData, data, reset } = createForm({
-		validate: (values) =>
-			Object.fromEntries(
+		validate: (values) => {
+			const errors = Object.fromEntries(
 				[...Value.Errors(formTable, values)].map((e) => [
 					e.path.replace('/', ''),
 					e.message,
 				]),
-			),
+			);
+
+			if (!validateCitizenId(values.citizenId)) {
+				errors.citizenId = 'Invalid citizen ID';
+			}
+
+			return errors;
+		},
 		async onSubmit(values) {
 			isLoading = true;
 			try {
@@ -98,7 +106,7 @@
 		/>
 		<div class="label">
 			<span class="body-01 {messages ? 'text-error' : ''}"
-				>ใส่เลขประจำตัวประชาชน 13 หลักไม่ต้องเว้นวรรค</span
+				>ใส่เลขประจำตัวประชาชนที่ถูกต้อง 13 หลักไม่ต้องเว้นวรรค</span
 			>
 		</div>
 	</ValidationMessage>
@@ -165,8 +173,9 @@
 					? 'border border-error'
 					: ''}"
 			>
+				<div class="absolute inset-x-4 bottom-1/3 h-[2px] bg-gray-300" />
 				<canvas
-					class="h-[258px] w-full {!signatureEnabled || isLoading
+					class="relative z-10 h-64 w-full {!signatureEnabled || isLoading
 						? 'pointer-events-none'
 						: ''}"
 					bind:this={signatureCanvas}
@@ -174,7 +183,7 @@
 				{#if signatureEnabled}
 					<button
 						type="button"
-						class="btn btn-accent btn-outline absolute bottom-4 right-[10px]"
+						class="btn btn-accent btn-outline absolute bottom-4 right-[10px] z-20"
 						on:click={clearPad}
 					>
 						ล้าง <ResetIcon />

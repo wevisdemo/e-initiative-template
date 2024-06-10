@@ -3,7 +3,7 @@
 	"type": "module",
 	"version": "0.0.1",
 	"scripts": {
-		"dev": "concurrently \"astro dev\" \"firebase emulators:start --project local --import ./mocks/firebase/\"",
+		"dev": "concurrently \"astro dev\" \"firebase emulators:start --import ./mocks/firebase/\"",
 		"build": "astro check && astro build",
 		"preview": "astro preview",
 		"astro": "astro",
