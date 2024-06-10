@@ -25,3 +25,6 @@ pnpm-debug.log*
 
 # Firebase log
 *.log
+
+# Post campaign scripts output
+out
