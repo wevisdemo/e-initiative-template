@@ -17,22 +17,24 @@ import {
 	query,
 	getCountFromServer,
 	connectFirestoreEmulator,
+	getDocs,
+	orderBy,
+	limit,
+	startAfter,
 } from 'firebase/firestore';
 import FirebaseOptions from '../../firebase.json';
-import type { FormDocument } from '../models/form';
+import { type FormDocument } from '../models/form';
 
 enum COLLECTION {
 	Documents = 'documents',
 	Users = 'users',
 }
 
-const app = initializeApp(
-	JSON.parse(import.meta.env.PUBLIC_FIREBASE_CONFIG || '{}'),
-);
+const app = initializeApp(JSON.parse(getEnv('PUBLIC_FIREBASE_CONFIG') || '{}'));
 const firestore = getFirestore(app);
 const auth = getAuth();
 
-if (import.meta.env.DEV) {
+if (import.meta.env?.DEV || process.env?.NODE_ENV === 'development') {
 	connectFirestoreEmulator(
 		firestore,
 		'127.0.0.1',
@@ -75,14 +77,9 @@ export const submitDocument = async (document: FormDocument) => {
 
 export const countSubmittedDocuments = async (): Promise<number> => {
 	try {
-		await signInWithEmailAndPassword(
-			auth,
-			import.meta.env.ADMIN_EMAIL,
-			import.meta.env.ADMIN_PASSWORD,
-		);
+		await signInAsAdmin();
 
 		const q = query(collection(firestore, COLLECTION.Documents));
-
 		const snapshot = await getCountFromServer(q);
 
 		return snapshot.data().count;
@@ -91,3 +88,37 @@ export const countSubmittedDocuments = async (): Promise<number> => {
 		return 0;
 	}
 };
+
+export async function getDocuments(
+	pageLimit: number,
+	lastCitizenId?: string,
+): Promise<FormDocument[]> {
+	const documents: FormDocument[] = [];
+
+	await signInAsAdmin();
+
+	const res = await getDocs(
+		query(
+			collection(firestore, COLLECTION.Documents),
+			orderBy('citizenId'),
+			limit(pageLimit),
+			...(lastCitizenId ? [startAfter(lastCitizenId)] : []),
+		),
+	);
+
+	res.forEach((doc) => documents.push(doc.data() as FormDocument));
+
+	return documents;
+}
+
+function signInAsAdmin() {
+	return signInWithEmailAndPassword(
+		auth,
+		getEnv('ADMIN_EMAIL'),
+		getEnv('ADMIN_PASSWORD'),
+	);
+}
+
+function getEnv(key: string) {
+	return process.env?.[key] || import.meta.env?.[key];
+}
