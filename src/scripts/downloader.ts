@@ -7,7 +7,7 @@ import {
 } from 'fs';
 import * as aq from 'arquero';
 import { getDocuments } from '../utils/firebase';
-import type { FormDocument } from '../models/form';
+import type { FormDocument } from '../models/document';
 import { validateCitizenId } from '../utils/validater';
 
 const OUTOUT_DIR = './out';

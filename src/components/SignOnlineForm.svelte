@@ -7,7 +7,7 @@
 	import PenIcon from '../icons/PenIcon.svelte';
 	import ResetIcon from '../icons/ResetIcon.svelte';
 	import CheckmarkIcon from '../icons/CheckmarkIcon.svelte';
-	import { formTable, MAX_LOCATION_LENGTH } from '../models/form';
+	import { documentsTable, MAX_LOCATION_LENGTH } from '../models/document';
 	import { submitDocument } from '../utils/firebase';
 	import { validateCitizenId } from '../utils/validater';
 
@@ -22,7 +22,7 @@
 	const { form, setTouched, setData, data, reset } = createForm({
 		validate: (values) => {
 			const errors = Object.fromEntries(
-				[...Value.Errors(formTable, values)].map((e) => [
+				[...Value.Errors(documentsTable, values)].map((e) => [
 					e.path.replace('/', ''),
 					e.message,
 				]),
@@ -37,8 +37,8 @@
 		async onSubmit(values) {
 			isLoading = true;
 			try {
-				if (!Value.Check(formTable, values)) {
-					throw [...Value.Errors(formTable, values)];
+				if (!Value.Check(documentsTable, values)) {
+					throw [...Value.Errors(documentsTable, values)];
 				}
 
 				await submitDocument(values);

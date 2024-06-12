@@ -23,7 +23,7 @@ import {
 	startAfter,
 } from 'firebase/firestore';
 import FirebaseOptions from '../../firebase.json';
-import { type FormDocument } from '../models/form';
+import { type FormDocument } from '../models/document';
 
 enum COLLECTION {
 	Documents = 'documents',
