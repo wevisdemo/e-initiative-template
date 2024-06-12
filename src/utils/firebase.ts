@@ -120,5 +120,5 @@ function signInAsAdmin() {
 }
 
 function getEnv(key: string) {
-	return process.env?.[key] || import.meta.env?.[key];
+	return import.meta.env?.[key] || process?.env?.[key];
 }
