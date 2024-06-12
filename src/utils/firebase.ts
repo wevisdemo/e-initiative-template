@@ -23,7 +23,7 @@ import {
 	startAfter,
 } from 'firebase/firestore';
 import FirebaseOptions from '../../firebase.json';
-import { type FormDocument } from '../models/document';
+import { type FormDocument, type SubmittedDocument } from '../models/document';
 
 enum COLLECTION {
 	Documents = 'documents',
@@ -65,11 +65,13 @@ export const submitDocument = async (document: FormDocument) => {
 	const docRef = doc(collection(firestore, COLLECTION.Documents));
 	const userRef = doc(firestore, COLLECTION.Users, user.uid);
 
-	batch.set(docRef, {
+	const submittedDocument: Record<keyof SubmittedDocument, unknown> = {
 		...document,
 		uid: user.uid,
 		timestamp: serverTimestamp(),
-	});
+	};
+
+	batch.set(docRef, submittedDocument);
 	batch.set(userRef, { timestamp: serverTimestamp() }, { merge: true });
 
 	return batch.commit();
@@ -92,8 +94,8 @@ export const countSubmittedDocuments = async (): Promise<number> => {
 export async function getDocuments(
 	pageLimit: number,
 	lastCitizenId?: string,
-): Promise<FormDocument[]> {
-	const documents: FormDocument[] = [];
+): Promise<SubmittedDocument[]> {
+	const documents: SubmittedDocument[] = [];
 
 	await signInAsAdmin();
 
@@ -106,7 +108,7 @@ export async function getDocuments(
 		),
 	);
 
-	res.forEach((doc) => documents.push(doc.data() as FormDocument));
+	res.forEach((doc) => documents.push(doc.data() as SubmittedDocument));
 
 	return documents;
 }
