@@ -1,6 +1,10 @@
 // https://th.wikipedia.org/wiki/เลขประจำตัวประชาชนไทย#ตัวเลขหลักที่_13
 export function validateCitizenId(value: unknown) {
-	if (typeof value !== 'string') return false;
+	if (
+		typeof value !== 'string' ||
+		value.split('').some((digit) => isNaN(+digit))
+	)
+		return false;
 
 	const n13 = +value.charAt(12);
 	const sum = value

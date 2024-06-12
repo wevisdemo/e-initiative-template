@@ -5,13 +5,15 @@ import {
 	mkdirSync,
 	existsSync,
 } from 'fs';
-import * as aq from 'arquero';
 import { getDocuments } from '../utils/firebase';
-import type { FormDocument } from '../models/document';
+import type { SubmittedDocument } from '../models/document';
 import { validateCitizenId } from '../utils/validater';
+import { csvFormat } from 'd3-dsv';
 
-const OUTOUT_DIR = './out';
-const TEMP_DIR = `${OUTOUT_DIR}/.tmp`;
+export const OUTPUT_DIR = './out';
+export const SIGNATURE_OUTPUT_PREFIX = 'signatories-with-signature-';
+
+const TEMP_DIR = `${OUTPUT_DIR}/.tmp`;
 const PAGE_LIMIT = 1000;
 const WITH_SIGNATURE_MAX_ROW = 10000;
 
@@ -21,7 +23,7 @@ let isCompleted = false;
 
 console.log('Retrieving documents...');
 
-if (!existsSync(OUTOUT_DIR)) mkdirSync(OUTOUT_DIR);
+if (!existsSync(OUTPUT_DIR)) mkdirSync(OUTPUT_DIR);
 if (!existsSync(TEMP_DIR)) mkdirSync(TEMP_DIR);
 
 do {
@@ -44,46 +46,89 @@ do {
 
 const documents = readdirSync(TEMP_DIR)
 	.filter((path) => path.endsWith('.json'))
-	.reduce<Document[]>((list, path) => {
+	.reduce<SubmittedDocument[]>((list, path) => {
 		list.push(...JSON.parse(readFileSync(`${TEMP_DIR}/${path}`, 'utf-8')));
 		return list;
 	}, []);
 
 console.log(`Original data has ${documents.length} rows`);
 
-const cleanedData = aq
-	.from(documents)
+const signatories = documents
 	.filter(
-		aq.escape(
-			(d: FormDocument) =>
-				d.firstname.length > 1 &&
-				d.lastname.length > 1 &&
-				d.citizenId.split('').every((digit) => !isNaN(+digit)) &&
-				validateCitizenId(d.citizenId),
-		),
+		(s) =>
+			s.firstname.length > 1 &&
+			s.lastname.length > 1 &&
+			validateCitizenId(s.citizenId),
 	)
-	.derive({
-		name: (d: FormDocument) =>
-			`${aq.op.trim(d.firstname)} ${aq.op.trim(d.lastname)}`,
-	})
-	.dedupe('citizenId', 'name')
-	.reify();
+	.sort((z, a) => z.timestamp.seconds - a.timestamp.seconds)
+	.filter(checkDuplicatedKeys(['citizenId', 'firstname', 'lastname']))
+	.sort((z, a) => a.timestamp.seconds - z.timestamp.seconds)
+	.map(
+		({
+			prefix,
+			firstname,
+			lastname,
+			timestamp,
+			location,
+			citizenId,
+			signature,
+		}) => {
+			return {
+				citizenId,
+				fullname: `${prefix.trim()},${firstname.trim()} ${lastname.trim()}`,
+				location: location.trim(),
+				date: new Date(timestamp.seconds * 1000),
+				signature,
+			};
+		},
+	);
 
-writeFileSync(
-	`${OUTOUT_DIR}/signatories.csv`,
-	cleanedData.select('citizenId', 'name').print().toCSV(),
-);
+writeFileSync(`${OUTPUT_DIR}/signatories.csv`, csvFormat(signatories));
 
-for (let i = 0; i * WITH_SIGNATURE_MAX_ROW < cleanedData.size; i++) {
+console.log(`Got ${signatories.length} signatories after cleaning`);
+
+for (let i = 0; i * WITH_SIGNATURE_MAX_ROW < signatories.length; i++) {
 	writeFileSync(
-		`${OUTOUT_DIR}/signatories-with-signature-${i + 1}.csv`,
-		cleanedData
-			.slice(i * WITH_SIGNATURE_MAX_ROW, (i + 1) * WITH_SIGNATURE_MAX_ROW)
-			.select('citizenId', 'name', 'signature')
-			.toCSV(),
+		`${OUTPUT_DIR}/${SIGNATURE_OUTPUT_PREFIX}${i + 1}.csv`,
+		csvFormat(
+			signatories
+				.slice(i * WITH_SIGNATURE_MAX_ROW, (i + 1) * WITH_SIGNATURE_MAX_ROW)
+				.map(formatSignatoriesWithSignature),
+		),
 	);
 }
 
-console.log(`Write CSV files into ${OUTOUT_DIR} successfully!`);
+console.log(`Write CSV files into ${OUTPUT_DIR} successfully!`);
 
 process.exit(0);
+
+function checkDuplicatedKeys<T extends Object>(keys: (keyof T)[]) {
+	return (obj1: T, i: number, arr: T[]) =>
+		arr.findIndex((obj2) => keys.every((key) => obj2[key] === obj1[key])) === i;
+}
+
+function formatSignatoriesWithSignature({
+	citizenId,
+	fullname,
+	location,
+	date,
+	signature,
+}: (typeof signatories)[number]) {
+	const [day, month, year] = date
+		.toLocaleDateString('TH-th', { dateStyle: 'long' })
+		.split(' ');
+
+	return {
+		citizenId,
+		fullname,
+		location,
+		day,
+		month,
+		year,
+		signature,
+	};
+}
+
+export type SignatoriesWithSignature = ReturnType<
+	typeof formatSignatoriesWithSignature
+>;
