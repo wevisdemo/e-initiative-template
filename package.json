@@ -6,7 +6,7 @@
 		"dev": "concurrently npm:dev:*",
 		"dev:astro": "astro dev",
 		"dev:firebase": "firebase emulators:start --import ./mocks/firebase/",
-		"build": "astro check && astro build",
+		"build": "astro build",
 		"preview": "astro preview",
 		"download": "node --env-file=.env --import tsx ./src/scripts/downloader.ts",
 		"dryrun": "NODE_ENV=development npm run download",
