@@ -9,9 +9,7 @@ import { getDocuments } from '../utils/firebase';
 import type { SubmittedDocument } from '../models/document';
 import { validateCitizenId } from '../utils/validater';
 import { csvFormat } from 'd3-dsv';
-
-export const OUTPUT_DIR = './out';
-export const SIGNATURE_OUTPUT_PREFIX = 'signatories-with-signature-';
+import { OUTPUT_DIR, SIGNATURE_OUTPUT_PREFIX } from './constants';
 
 const TEMP_DIR = `${OUTPUT_DIR}/.tmp`;
 const PAGE_LIMIT = 1000;
