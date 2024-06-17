@@ -17,7 +17,7 @@
 </script>
 
 <div class="flex flex-1 flex-col gap-6">
-	{#if Config.pettition.offline}
+	{#if Config.petition.offline}
 		<div class="join">
 			{#each Object.values(Channels) as option}
 				<input
@@ -36,7 +36,7 @@
 		<CardContainer>
 			<SignOnlineForm />
 		</CardContainer>
-	{:else if Config.pettition.offline}
+	{:else if Config.petition.offline}
 		<div class="body-02-normal space-y-3">
 			<CardContainer class="space-y-3">
 				<p class="heading-03">วิธีที่ 1 : เดินทางไปลงชื่อที่จุดตั้งโต๊ะ</p>
@@ -56,7 +56,7 @@
 					>
 					<a
 						target="_blank"
-						href={Config.pettition.offline.formUrl}
+						href={Config.petition.offline.formUrl}
 						class="heading-03 btn btn-primary btn-block text-[16px] normal-case text-base-100"
 					>
 						ดาวน์โหลดแบบฟอร์ม <DocumentIcon />
@@ -69,16 +69,16 @@
 					<p>ชวนคนใกล้ๆ ตัวมาร่วมลงชื่อให้เต็มแผ่นเลยก็ได้</p>
 					<img
 						class="mx-auto"
-						src={Config.pettition.offline.formExampleImageUrl}
+						src={Config.petition.offline.formExampleImageUrl}
 						alt=""
 					/>
 				</StepBlock>
 				<StepBlock>
 					<svelte:fragment slot="heading"
-						>3. ส่งเอกสารรวบรวมรายชื่อมายัง {Config.pettition.offline
-							.headquarter.name}
+						>3. ส่งเอกสารรวบรวมรายชื่อมายัง {Config.petition.offline.headquarter
+							.name}
 						<span class="text-error"
-							>ภายในวันที่ {Config.pettition.endDate.toLocaleDateString(
+							>ภายในวันที่ {Config.petition.endDate.toLocaleDateString(
 								'TH-th',
 								{ dateStyle: 'medium' },
 							)}</span

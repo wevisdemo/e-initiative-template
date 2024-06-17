@@ -66,9 +66,10 @@ for (let i = 0; i < sourceFiles.length; i++) {
 console.log(`Finished. Filled ${counter} signatures to PDFs.`);
 
 export async function fill(signs: SignatoriesWithSignature[]) {
-	const docBuffer = readFileSync('./src/resources/petition-form.pdf');
-	const templateDoc = await PDFDocument.load(docBuffer);
-	const fontBuffer = readFileSync('./src/resources/Sarabun-Regular.ttf');
+	const templateDoc = await PDFDocument.load(
+		readFileSync(Config.renderer.templateFile),
+	);
+	const fontBuffer = readFileSync(Config.renderer.fontFile);
 
 	const targetedDoc = await PDFDocument.create();
 
