@@ -1,3 +1,6 @@
+import type { SignatoriesWithSignature } from './scripts/downloader';
+import type { FillingBox } from './scripts/renderer';
+
 export interface EInitiativeConfig {
 	metadata: {
 		title: string;
@@ -33,5 +36,10 @@ export interface EInitiativeConfig {
 			string
 		>;
 		stylesheets?: string[];
+	};
+	renderer: {
+		fontSize: number;
+		lineHeight: number;
+		fields: FillingBox[];
 	};
 }

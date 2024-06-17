@@ -2,28 +2,36 @@ import { writeFileSync, readdirSync, readFileSync, mkdirSync } from 'fs';
 import { PDFDocument, PDFFont, PDFPage } from 'pdf-lib';
 import { csvParse } from 'd3-dsv';
 import fontkit from '@pdf-lib/fontkit';
+import Config from '../../e-initiative.config.mjs';
 import type { SignatoriesWithSignature } from './downloader';
 import { OUTPUT_DIR, SIGNATURE_OUTPUT_PREFIX } from './constants';
 
-type FillingBox = { x: number; y: number; maxWidth?: number };
+export type FillingBox = TextFillingBox | ImageFillingBox;
 
-const FONT_SIZE = 10;
-const LINE_HEIGHT = 14;
-const CITIZEN_ID_FONT_SIZE = 22;
-const CITIZEN_ID_LINE_HEIGHT = 30;
+interface TextFillingBox extends BaseFillingBox {
+	type: 'text';
+	fontSize?: number;
+	lineHeight?: number;
+	maxWidth?: number;
+	split?: {
+		by: string;
+		getOffsetX?: (char: string, index: number) => number;
+		getOffsetY?: (char: string, index: number) => number;
+	};
+}
 
-const LOCATION_POSITION: FillingBox = { x: 375, y: 645, maxWidth: 160 };
-const DAY_POSITION: FillingBox = { x: 317, y: 624 };
-const MONTH_POSITION: FillingBox = { x: 376, y: 624, maxWidth: 83 };
-const YEAR_POSITION: FillingBox = { x: 496, y: 624 };
+interface ImageFillingBox extends BaseFillingBox {
+	type: 'image';
+	renderAsImage: boolean;
+	maxWidth: number;
+	maxHeight: number;
+}
 
-const NAME_POSITION: FillingBox = { x: 229, y: 569, maxWidth: 290 };
-const CITIZEN_ID_POSITION: FillingBox = { x: 223, y: 517 };
-const CITIZEN_ID_DASH_WIDTH = 6.5;
-const CITIZEN_ID_DIGIT_WIDTH = 22;
-
-const SIGNATURE_POSITION: FillingBox = { x: 325, y: 367 };
-const SIGNATURE_NAME_POSITION: FillingBox = { x: 318, y: 351, maxWidth: 120 };
+interface BaseFillingBox {
+	key: keyof SignatoriesWithSignature;
+	x: number;
+	y: number;
+}
 
 const sourceFiles = readdirSync(OUTPUT_DIR).filter(
 	(file) => file.startsWith(SIGNATURE_OUTPUT_PREFIX) && file.endsWith('.csv'),
@@ -97,60 +105,67 @@ async function fillPage(
 		font: PDFFont;
 	},
 ): Promise<void> {
-	fillText(sign.location, LOCATION_POSITION);
-	fillText(sign.day, DAY_POSITION);
-	fillText(sign.month, MONTH_POSITION);
-	fillText(sign.year, YEAR_POSITION);
-	fillText(sign.fullname, NAME_POSITION);
-	fillText(sign.fullname, SIGNATURE_NAME_POSITION);
-	fillBase64Image(sign.signature, 100, 50);
+	const { fields, ...defaultOption } = Config.renderer;
 
-	// Fill citizen Id
-	page.moveTo(CITIZEN_ID_POSITION.x, CITIZEN_ID_POSITION.y);
-	sign.citizenId.split('').forEach((digit, i) => {
-		page.drawText(digit, {
-			size: CITIZEN_ID_FONT_SIZE,
-			lineHeight: CITIZEN_ID_LINE_HEIGHT,
-			font,
-		});
-		if ([0, 4, 9, 11].includes(i)) {
-			page.moveRight(CITIZEN_ID_DIGIT_WIDTH + CITIZEN_ID_DASH_WIDTH);
-		} else {
-			page.moveRight(CITIZEN_ID_DIGIT_WIDTH);
-		}
-	});
+	await Promise.all(
+		fields.map((field) => {
+			if (field.type === 'image') {
+				return fillBase64Image(sign[field.key], field);
+			}
 
-	function fillText(value: string, { x, y, maxWidth }: FillingBox) {
+			if (field.split) {
+				sign.citizenId.split(field.split.by).forEach((digit, i) => {
+					fillText(digit, {
+						...field,
+						x: field.x + (field.split?.getOffsetX?.(digit, i) || 0),
+						y: field.y + (field.split?.getOffsetY?.(digit, i) || 0),
+					});
+				});
+
+				return;
+			}
+
+			return fillText(sign[field.key], field);
+		}),
+	);
+
+	function fillText(
+		value: string,
+		{
+			x,
+			y,
+			fontSize = defaultOption.fontSize,
+			lineHeight = defaultOption.lineHeight,
+			maxWidth,
+		}: TextFillingBox,
+	) {
 		page.moveTo(x, y);
 
 		page.drawText(value, {
 			size: maxWidth
-				? Math.min(findFontSizeThatFits(value, maxWidth || 0), FONT_SIZE)
-				: FONT_SIZE,
-			lineHeight: LINE_HEIGHT,
-			maxWidth: maxWidth,
+				? Math.min(findFontSizeThatFits(value, maxWidth || 0), fontSize)
+				: fontSize,
+			lineHeight,
+			maxWidth,
 			font,
 		});
 	}
 
 	async function fillBase64Image(
-		base64: string,
-		width: number,
-		height: number,
+		value: string,
+		{ x, y, maxWidth, maxHeight }: ImageFillingBox,
 	) {
-		const signature = await targetedDoc.embedPng(base64);
-		const { width: signatureFitWidth, height: signatureFitHeight } =
-			signature.scaleToFit(width, height);
+		const signature = await targetedDoc.embedPng(value);
+
 		page.drawImage(signature, {
-			width: signatureFitWidth,
-			height: signatureFitHeight,
-			x: SIGNATURE_POSITION.x,
-			y: SIGNATURE_POSITION.y,
+			x,
+			y,
+			...signature.scaleToFit(maxWidth, maxHeight),
 		});
 	}
 
 	function findFontSizeThatFits(text: string, width: number): number {
-		for (let i = FONT_SIZE; i > 0; i -= 0.5) {
+		for (let i = defaultOption.fontSize; i > 0; i -= 0.5) {
 			if (width > font.widthOfTextAtSize(text, i)) {
 				return i;
 			}

@@ -51,4 +51,38 @@ export default {
 			'https://fonts.googleapis.com/css2?family=Noto+Sans+Thai+Looped:wght@100;200;300;400;500;600;700;800;900&family=Noto+Sans+Thai:wght@100..900&display=swap',
 		],
 	},
+	renderer: {
+		fontSize: 10,
+		lineHeight: 14,
+		fields: [
+			{ key: 'location', type: 'text', x: 375, y: 645, maxWidth: 160 },
+			{ key: 'day', type: 'text', x: 317, y: 624 },
+			{ key: 'month', type: 'text', x: 376, y: 624, maxWidth: 83 },
+			{ key: 'year', type: 'text', x: 496, y: 624 },
+			{ key: 'fullname', type: 'text', x: 229, y: 569, maxWidth: 290 },
+			{
+				key: 'citizenId',
+				type: 'text',
+				x: 223,
+				y: 517,
+				fontSize: 22,
+				lineHeight: 30,
+				split: {
+					by: '',
+					getOffsetX: (_, i) =>
+						i * 22 /* digit width */ +
+						[0, 4, 9, 11].filter((d) => d < i).length * 6.5 /* dash width */,
+				},
+			},
+			{
+				key: 'signature',
+				type: 'image',
+				x: 325,
+				y: 367,
+				maxWidth: 100,
+				maxHeight: 50,
+			},
+			{ key: 'fullname', type: 'text', x: 318, y: 351, maxWidth: 120 },
+		],
+	},
 };
