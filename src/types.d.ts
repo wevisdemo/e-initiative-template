@@ -8,7 +8,7 @@ export interface EInitiativeConfig {
 		siteUrl: string;
 		previewImageUrl: string;
 	};
-	pettition: {
+	petition: {
 		endDate: Date;
 		expectedSignatures: number;
 		offline?: {
@@ -38,6 +38,8 @@ export interface EInitiativeConfig {
 		stylesheets?: string[];
 	};
 	renderer: {
+		templateFile: string;
+		fontFile: string;
 		fontSize: number;
 		lineHeight: number;
 		fields: FillingBox[];

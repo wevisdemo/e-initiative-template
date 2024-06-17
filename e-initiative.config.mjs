@@ -6,11 +6,11 @@ export default {
 		siteUrl: 'https://e-initiative-template.pages.dev',
 		previewImageUrl: 'https://e-initiative-template.pages.dev/og.png',
 	},
-	pettition: {
+	petition: {
 		endDate: new Date('2024-10-10 GMT+7'),
 		expectedSignatures: 10000,
 		offline: {
-			formUrl: '/#url-to-form',
+			formUrl: '/petition-form.pdf',
 			formExampleImageUrl: 'https://placehold.co/280x397?text=example',
 			headquarter: {
 				name: 'ชื่อสถานที่',
@@ -52,6 +52,8 @@ export default {
 		],
 	},
 	renderer: {
+		templateFile: './public/petition-form.pdf',
+		fontFile: './src/fonts/Sarabun-Regular.ttf',
 		fontSize: 10,
 		lineHeight: 14,
 		fields: [

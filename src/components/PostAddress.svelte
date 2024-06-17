@@ -3,5 +3,5 @@
 </script>
 
 <p class="rounded-lg bg-base-200 p-2 text-center font-semibold">
-	{Config.pettition.offline.headquarter.address}
+	{Config.petition.offline.headquarter.address}
 </p>

@@ -25,7 +25,7 @@ const documentCount = await countSubmittedDocuments();
 	</div>
 	<div class="my-auto flex w-full max-w-md flex-col space-y-2">
 		<p class="mt-1">
-			ต้องการ {Config.pettition.expectedSignatures.toLocaleString()} รายชื่อ
+			ต้องการ {Config.petition.expectedSignatures.toLocaleString()} รายชื่อ
 		</p>
 
 		<div class="flex flex-col gap-2">
@@ -36,7 +36,7 @@ const documentCount = await countSubmittedDocuments();
 				<p>
 					{dayElapsed > 0 && <>เหลือเวลาอีก {dayElapsed} วัน</>}
 					(ภายใน {
-						Config.pettition.endDate.toLocaleDateString('TH-th', {
+						Config.petition.endDate.toLocaleDateString('TH-th', {
 							dateStyle: 'medium',
 						})
 					})
