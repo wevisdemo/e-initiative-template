@@ -36,7 +36,7 @@
 		<CardContainer>
 			<SignOnlineForm />
 		</CardContainer>
-	{:else}
+	{:else if Config.pettition.offline}
 		<div class="body-02-normal space-y-3">
 			<CardContainer class="space-y-3">
 				<p class="heading-03">วิธีที่ 1 : เดินทางไปลงชื่อที่จุดตั้งโต๊ะ</p>

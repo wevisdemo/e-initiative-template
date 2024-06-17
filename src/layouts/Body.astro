@@ -35,7 +35,10 @@ const previewImageUrl =
 		<meta name="twitter:description" content={description} />
 		<meta name="twitter:image" content={previewImageUrl} />
 		<meta name="twitter:image:alt" content={title} />
-		{Config.theme.stylesheets.map((href) => <link {href} rel="stylesheet" />)}
+		{
+			Config.theme.stylesheets &&
+				Config.theme.stylesheets.map((href) => <link {href} rel="stylesheet" />)
+		}
 	</head>
 	<body class="body-02">
 		<slot />

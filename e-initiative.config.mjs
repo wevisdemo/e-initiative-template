@@ -1,3 +1,4 @@
+/** @type {import('./src/types').EInitiativeConfig} */
 export default {
 	metadata: {
 		title: 'E-Initiative Template',
