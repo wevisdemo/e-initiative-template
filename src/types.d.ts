@@ -37,6 +37,10 @@ export interface EInitiativeConfig {
 		>;
 		stylesheets?: string[];
 	};
+	sheets?: {
+		id: string;
+		enableOfflineSignature?: boolean;
+	};
 	renderer: {
 		templateFile: string;
 		fontFile: string;

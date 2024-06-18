@@ -6,8 +6,11 @@ import LocationIcon from '../icons/LocationIcon.svelte';
 import TableIcon from '../icons/TableIcon.svelte';
 import { dayElapsed, isCampaignEnded } from '../utils/campaign';
 import { countSubmittedDocuments } from '../utils/firebase';
+import { countOfflineSignatures } from '../utils/sheets';
 
-const documentCount = await countSubmittedDocuments();
+const documentCount =
+	(await countSubmittedDocuments()) +
+	(Config.sheets?.enableOfflineSignature ? await countOfflineSignatures() : 0);
 ---
 
 <SectionContainer
@@ -44,8 +47,9 @@ const documentCount = await countSubmittedDocuments();
 			</div>
 			<p class="body-01-normal opacity-50">
 				อัปเดตข้อมูล {
-					new Date().toLocaleDateString('TH-th', {
+					new Date().toLocaleString('TH-th', {
 						dateStyle: 'medium',
+						timeStyle: 'short',
 					})
 				}
 			</p>

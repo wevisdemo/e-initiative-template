@@ -51,6 +51,10 @@ export default {
 			'https://fonts.googleapis.com/css2?family=Noto+Sans+Thai+Looped:wght@100;200;300;400;500;600;700;800;900&family=Noto+Sans+Thai:wght@100..900&display=swap',
 		],
 	},
+	sheets: {
+		id: '1PPl4bIKrNC68nc9sWDp7aolnTv0xiHZYQRlsvnRpAHc',
+		enableOfflineSignature: true,
+	},
 	renderer: {
 		templateFile: './public/petition-form.pdf',
 		fontFile: './src/fonts/Sarabun-Regular.ttf',
