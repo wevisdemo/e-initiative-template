@@ -8,6 +8,7 @@ import PostAddress from './PostAddress.svelte';
 ---
 
 <SectionContainer
+	id="volunteer"
 	innerClass="flex w-full max-w-screen-md flex-col items-center gap-8"
 >
 	<h2 class="heading-responsive-02 text-center">อาสาล่ารายชื่อ</h2>
@@ -16,7 +17,7 @@ import PostAddress from './PostAddress.svelte';
 		<StepBlock class="pt-0">
 			<Fragment slot="heading">1. ลงทะเบียน</Fragment>
 			<a
-				href={Config.petition.offline.volunteer.registrationFormUrl}
+				href={Config.petition.offline?.volunteer.registrationFormUrl}
 				target="_blank"
 				rel="noopener noreferrer"
 				class="btn btn-primary btn-block text-base-100"
@@ -33,18 +34,18 @@ import PostAddress from './PostAddress.svelte';
 			</p>
 			<img
 				class="mx-auto"
-				src={Config.petition.offline.formExampleImageUrl}
+				src={Config.petition.offline?.formExampleImageUrl}
 				alt=""
 			/>
 			<a
-				href={Config.petition.offline.formUrl}
+				href={Config.petition.offline?.formUrl}
 				target="_blank"
 				rel="noopener noreferrer"
 				class="btn btn-primary btn-block text-base-100"
 				>ดาวน์โหลดแบบฟอร์ม <DocumentIcon /></a
 			>
 			{
-				Config.petition.offline.volunteer.assetsUrl && (
+				Config.petition.offline?.volunteer.assetsUrl && (
 					<a
 						href={Config.petition.offline.volunteer.assetsUrl}
 						target="_blank"
@@ -73,7 +74,7 @@ import PostAddress from './PostAddress.svelte';
 		<StepBlock>
 			<Fragment slot="heading"
 				>3. ส่งเอกสารรวบรวมรายชื่อมายัง {
-					Config.petition.offline.headquarter.name
+					Config.petition.offline?.headquarter.name
 				}
 				<span class="text-error"
 					>ภายในวันที่ {
@@ -95,11 +96,11 @@ import PostAddress from './PostAddress.svelte';
 		<StepBlock>
 			<Fragment slot="heading">4.หากมีคำถามหรือสงสัย ติดต่อสอบถามผ่าน</Fragment>
 			<a
-				href={Config.petition.offline.volunteer.contact.url}
+				href={Config.petition.offline?.volunteer.contact.url}
 				target="_blank"
 				rel="noopener noreferrer"
 				class="btn btn-secondary btn-block"
-				>{Config.petition.offline.volunteer.contact.name}</a
+				>{Config.petition.offline?.volunteer.contact.name}</a
 			>
 		</StepBlock>
 	</div>
