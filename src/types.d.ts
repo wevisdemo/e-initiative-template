@@ -40,6 +40,7 @@ export interface EInitiativeConfig {
 	sheets?: {
 		id: string;
 		enableOfflineSignature?: boolean;
+		enableLocations?: boolean;
 	};
 	renderer: {
 		templateFile: string;

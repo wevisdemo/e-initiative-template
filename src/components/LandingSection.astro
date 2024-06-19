@@ -69,14 +69,15 @@ const documentCount =
 							ลงชื่อเลย
 							<PenIcon />
 						</a>
-						<button class="heading-03 btn btn-secondary btn-block">
-							ดูสถานที่ลงชื่อ
-							<LocationIcon />
-						</button>
-						<button class="heading-03 btn btn-secondary btn-block">
-							อาสาล่ารายชื่อ
-							<TableIcon />
-						</button>
+						{Config.sheets?.enableLocations && (
+							<a
+								href="/locations"
+								class="heading-03 btn btn-secondary btn-block"
+							>
+								ดูสถานที่ลงชื่อ
+								<LocationIcon />
+							</a>
+						)}
 					</div>
 				)
 			}
