@@ -3,6 +3,7 @@ import SectionContainer from '../components/SectionContainer.astro';
 import LocationList from '../components/LocationList.svelte';
 import Body from '../layouts/Body.astro';
 import { getLocations } from '../utils/sheets';
+import UpdateTimestamp from '../components/UpdateTimestamp.svelte';
 
 const { totalLocations, locationByProvinces } = await getLocations();
 ---
@@ -23,12 +24,13 @@ const { totalLocations, locationByProvinces } = await getLocations();
 				<span class="link-01 h-4">กลับหน้าหลัก</span>
 			</a>
 
-			<h1 class="heading-responsive-02 mb-[30px] text-center leading-none">
+			<h1 class="heading-responsive-02 text-center leading-none">
 				มีจุดตั้งโต๊ะทั้งหมด {totalLocations} จุด ใน {
 					locationByProvinces.length
 				}
 				จังหวัด
 			</h1>
+			<UpdateTimestamp class="text-center" />
 
 			<LocationList {locationByProvinces} />
 		</SectionContainer>
