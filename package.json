@@ -27,6 +27,7 @@
 		"felte": "^1.2.14",
 		"firebase": "^10.12.2",
 		"pdf-lib": "^1.17.1",
+		"scrollama": "^3.2.0",
 		"sheethuahua": "^2.0.0",
 		"signature_pad": "^5.0.1"
 	},

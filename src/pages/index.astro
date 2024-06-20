@@ -1,7 +1,7 @@
 ---
 import Config from '../../e-initiative.config.mjs';
 import Body from '../layouts/Body.astro';
-import Navbar from '../components/Navbar.astro';
+import Navbar from '../components/Navbar.svelte';
 import LandingSection from '../components/LandingSection.astro';
 import IntroSection from '../components/IntroSection.astro';
 import SignSection from '../components/SignSection.astro';
@@ -23,6 +23,6 @@ import { isCampaignEnded } from '../utils/campaign';
 			)
 		}
 		<AboutSection />
-		<Navbar />
+		<Navbar client:idle />
 	</main>
 </Body>
