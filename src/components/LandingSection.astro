@@ -8,6 +8,7 @@ import TableIcon from '../icons/TableIcon.svelte';
 import { dayElapsed, isCampaignEnded } from '../utils/campaign';
 import { countSubmittedDocuments } from '../utils/firebase';
 import { countOfflineSignatures } from '../utils/sheets';
+import Sharer from './Sharer.svelte';
 
 const documentCount =
 	(await countSubmittedDocuments()) +
@@ -90,5 +91,10 @@ const documentCount =
 		<a class="heading-03 btn btn-link btn-block hover:text-accent"
 			>ทำไมต้องลงชื่อ</a
 		>
+
+		<div class="flex items-center justify-center gap-3 text-primary">
+			<span class="body-01">แชร์</span>
+			<Sharer />
+		</div>
 	</div>
 </SectionContainer>
