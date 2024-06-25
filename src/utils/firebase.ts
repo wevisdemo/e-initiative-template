@@ -1,4 +1,4 @@
-import { initializeApp } from 'firebase/app';
+import { initializeApp, getApp, type FirebaseApp } from 'firebase/app';
 import {
 	type Auth,
 	type User,
@@ -30,7 +30,14 @@ enum COLLECTION {
 	Users = 'users',
 }
 
-const app = initializeApp(JSON.parse(getEnv('PUBLIC_FIREBASE_CONFIG') || '{}'));
+let app: FirebaseApp;
+
+try {
+	app = getApp();
+} catch {
+	app = initializeApp(JSON.parse(getEnv('PUBLIC_FIREBASE_CONFIG') || '{}'));
+}
+
 const firestore = getFirestore(app);
 const auth = getAuth();
 
