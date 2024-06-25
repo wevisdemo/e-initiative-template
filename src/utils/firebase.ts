@@ -65,6 +65,10 @@ const getUser = (auth: Auth): Promise<User> => {
 };
 
 export const submitDocument = async (document: FormDocument) => {
+	if (getEnv('DEMO_MODE')) {
+		return new Promise<void>((res) => setTimeout(res, 2000));
+	}
+
 	await signInAnonymously(auth);
 	const user = await getUser(auth);
 
