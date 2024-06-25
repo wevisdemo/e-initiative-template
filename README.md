@@ -17,7 +17,7 @@ Full process template for citizen initiative campaign, from digital signatures c
    - Download online submission signatories' data as CSV files
    - Render CSV data on the pdf template for legislative submission
 
-Configulation file is provided, but everything can be cutomized through code.
+Configulation file is provided, but everything can be customized with code.
 
 ## Usage
 
@@ -43,22 +43,24 @@ For online signature submission
 1. Create a new project in Firebase Console
 2. Set up Authentication
    2.1. Enable Email/Password and Anonymous sign-in methods.
-   2.2. Add user and provide email/password for admin account. Then add the same information in local `.env` file (create it in the project folder if not exist) with `ADMIN_EMAIL` and `ADMIN_PASSWORD` keys.
+   2.2. Add user and provide email/password for admin account. Then add the same information in local `.env.production` file (create it in the project folder if not exist) with `ADMIN_EMAIL` and `ADMIN_PASSWORD` keys.
    2.3. Copy admin's User UID for the next step.
 3. Set up Firestore Database
    3.1 Enable the Firestore
    3.2 Copy rules from `firestore.rules` and don't forget to update admin's UID from the previous step. (Only update rules on the console, )
 4. Obtain Firebase config
    3.1 Add a new Web app from project settings > General > Your Apps
-   3.2 Copy `firebaseConfig` as a one-line JSON format and put it in `PUBLIC_FIREBASE_CONFIG` of local `.env` file.
+   3.2 Copy `firebaseConfig` as a one-line JSON format and put it in `PUBLIC_FIREBASE_CONFIG` of local `.env.production` file.
 
-At the end, your `.env` file should look like this:
+At the end, your `.env.production` file should look like this:
 
 ```env
 PUBLIC_FIREBASE_CONFIG={"apiKey": "???", "authDomain": "???", "projectId": "???", "storageBucket": "???", "messagingSenderId": "???", "appId": "???"}
 ADMIN_EMAIL=???
 ADMIN_PASSWORD=???
 ```
+
+Note: there is a `.env.development` with mocked data for working with the Firebase emulator in local development environment. You don't need to change anything there.
 
 #### Google Sheets
 
@@ -91,7 +93,7 @@ To start Astro development server and Firebase emulator:
 npm run dev
 ```
 
-During the development mode, any changes to Firebase will be in local emulator, leaving production database untouched. Mock data will be initialized in Firestore emulator for post-campaign script testing.
+During the development mode, any changes to Firebase will be in local emulator, leaving production database untouched. Mock data will be initialized in Firestore emulator for post-campaign script testing. The `.env.development` is used.
 
 #### Build
 
@@ -107,7 +109,7 @@ Static site will be generated to `/dist` and we can preview production build wit
 npm run preview
 ```
 
-Note that production build will use the real Firebase, not emulator.
+Note that production build will use `.env.production` and the real Firebase, not emulator.
 
 #### Deployment
 

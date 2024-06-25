@@ -8,9 +8,9 @@
 		"dev:firebase": "firebase emulators:start --import ./mocks/firebase/",
 		"build": "astro build",
 		"preview": "astro preview",
-		"download:local": "NODE_ENV=development npm run download:prod",
-		"download:prod": "node --env-file=.env --import tsx ./src/scripts/downloader.ts",
-		"render": "node --env-file=.env --import tsx ./src/scripts/renderer.ts",
+		"download:local": "NODE_ENV=development node --env-file=.env.development --import tsx ./src/scripts/downloader.ts",
+		"download:prod": "node --env-file=.env.production --import tsx ./src/scripts/downloader.ts",
+		"render": "node --import tsx ./src/scripts/renderer.ts",
 		"format": "prettier --write --ignore-unknown .",
 		"prepare": "husky"
 	},
