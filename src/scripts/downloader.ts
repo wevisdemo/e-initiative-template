@@ -73,7 +73,7 @@ const signatories = documents
 		}) => {
 			return {
 				citizenId,
-				fullname: `${prefix.trim()},${firstname.trim()} ${lastname.trim()}`,
+				fullname: `${prefix.trim()} ${firstname.trim()} ${lastname.trim()}`,
 				location: location.trim(),
 				date: new Date(timestamp.seconds * 1000),
 				signature,
