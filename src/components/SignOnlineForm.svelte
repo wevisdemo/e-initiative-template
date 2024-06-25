@@ -173,7 +173,7 @@
 					? 'border border-error'
 					: ''}"
 			>
-				<div class="absolute inset-x-4 bottom-1/3 h-[2px] bg-gray-300" />
+				<div class="absolute inset-x-4 bottom-[30%] h-[2px] bg-gray-300" />
 				<canvas
 					class="relative z-10 h-64 w-full {!signatureEnabled || isLoading
 						? 'pointer-events-none'
