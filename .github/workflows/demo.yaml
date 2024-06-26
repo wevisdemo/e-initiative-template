@@ -40,7 +40,7 @@ jobs:
       - name: Build with Astro
         run: npm run build
         env:
-          DEMO_MODE: true
+          DEMO_MODE: true # REMOVE THIS
           PUBLIC_FIREBASE_CONFIG: ${{ secrets.PUBLIC_FIREBASE_CONFIG }}
           ADMIN_EMAIL: ${{ secrets.ADMIN_EMAIL }}
           ADMIN_PASSWORD: ${{ secrets.ADMIN_PASSWORD }}
