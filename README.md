@@ -17,7 +17,7 @@ Full process template for citizen initiative campaign, from digital signatures c
    - Download online submission signatories' data as CSV files
    - Render CSV data on the pdf template for legislative submission
 
-Configulation file is provided, but everything can be customized with code.
+Configuration file is provided, but everything can be customized with code.
 
 ## Usage
 
@@ -72,9 +72,9 @@ For human-curated data, including offline signatures count and voluntary sign lo
 2. Grant "Viewer" permission to "Anyone with the link" in Share menu
 3. Obtain Sheets ID from the URL `https://docs.google.com/spreadsheets/d/{sheetsID}/` and add it to the `sheets.id` in `e-initiative.config.mjs`
 4. _(Optional)_ If you allow anyone to submit a voluntary offline sign location.
-   4.1. Create a Google Form with fields coresponded to `locations` sheet's columns
-   4.2. In the form response settings, link the form response to your duplicated sheets. A respose sheet will be created with each question in the header.
-   4.2. Rename column header to be like `locations` sheet. Doesn't need to have the same order, but it must coresponded to each question.
+   4.1. Create a Google Form with fields corresponded to `locations` sheet's columns
+   4.2. In the form response settings, link the form response to your duplicated sheets. A response sheet will be created with each question in the header.
+   4.2. Rename column header to be like `locations` sheet. Doesn't need to have the same order, but it must corresponded to each question.
    4.3 Remove old `locations` sheet and rename form response sheet to be `locations` instead.
 
 ### Configuration file
@@ -85,7 +85,10 @@ Most of the campaign information can be config via `e-initiative.config.mjs`. Ex
 
 #### Development
 
-Website content can be directly edited through source code. Index page entry point to get started is `/src/pages/index.astro`
+- Website content can be directly edited through source code. Index page entry point to get started is `src/pages/index.astro`.
+- UI components are from either Daisy UI or custom made available in `src/components`.
+- Color theme defined in `e-initiative.config.mjs` is available as a Tailwind class. For VSCode user, Tailwind extension is recommended for Tailwind class auto-completion.
+- Typography CSS global utility classes are defined in `src/styles/typography.css` and ready to be used.
 
 To start Astro development server and Firebase emulator:
 
@@ -113,7 +116,9 @@ Note that production build will use `.env.production` and the real Firebase, not
 
 #### Deployment
 
-Because we use Static Site Generation (SSG), no data from Firebase and Google Sheets will be update after the build. So we recommended to use CI/CD tools that support schedule deployment such as Github Actions. Then we can periodically re-build and re-deploy in a given period.
+Since Astro use Static Site Generation (SSG), no data from Firebase and Google Sheets will be updated after the build. So we recommended to use CI/CD tools that support schedule deployment such as Github Actions. Then we can periodically re-build and re-deploy in a given period. Don't forget to add all the production environment variables to the CI/CD.
+
+Template also include GitHub Action's workflow file `.github/workflows/demo.yaml`. Please remove it before pushing to GitHub if you don't want to use it. But if you do, don't forget to add all the production environment variables as a repository secrets and remove `DEMO_MODE` env from the _Build with Astro_ step.
 
 ### Post-campaign scripts
 
@@ -154,7 +159,7 @@ Citizens have the rights to propose a law draft to the parliament, when they can
    - Design campaign content and activities
 
 2. **Campaign**
-   - Promote the intiative
+   - Promote the initiative
    - Collect citizen signatures through offline/online channel
 3. **Post campaign**
    - Submit the draft together with all the signatures to the parliament
