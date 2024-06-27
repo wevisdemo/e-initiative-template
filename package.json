@@ -15,6 +15,7 @@
 		"prepare": "husky"
 	},
 	"lint-staged": {
+		"*.md": "doctoc --github",
 		"*": "prettier --write --ignore-unknown"
 	},
 	"dependencies": {
@@ -24,6 +25,7 @@
 		"@types/d3-dsv": "^3.0.7",
 		"d3-dsv": "^3.0.1",
 		"dayjs": "^1.11.11",
+		"doctoc": "^2.2.1",
 		"felte": "^1.2.14",
 		"firebase": "^10.12.2",
 		"pdf-lib": "^1.17.1",
