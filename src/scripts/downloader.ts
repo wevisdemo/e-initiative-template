@@ -81,7 +81,10 @@ const signatories = documents
 		},
 	);
 
-writeFileSync(`${OUTPUT_DIR}/signatories.csv`, csvFormat(signatories));
+writeFileSync(
+	`${OUTPUT_DIR}/signatories.csv`,
+	csvFormat(signatories.map(({ signature, ...rest }) => rest)),
+);
 
 console.log(`Got ${signatories.length} signatories after cleaning`);
 
