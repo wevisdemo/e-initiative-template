@@ -1,5 +1,5 @@
 <script lang="ts">
-	import Config from '../../e-initiative.config.mjs';
+	import Config from '../../../e-initiative.config.mjs';
 	import SignOnlineForm from './SignOnlineForm.svelte';
 	import LocationIcon from '../icons/LocationIcon.svelte';
 	import DocumentIcon from '../icons/DocumentIcon.svelte';
