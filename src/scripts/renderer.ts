@@ -5,33 +5,7 @@ import fontkit from '@pdf-lib/fontkit';
 import Config from '../../e-initiative.config.mjs';
 import type { SignatoriesWithSignature } from './downloader';
 import { OUTPUT_DIR, SIGNATURE_OUTPUT_PREFIX } from './constants';
-
-export type FillingBox = TextFillingBox | ImageFillingBox;
-
-interface TextFillingBox extends BaseFillingBox {
-	type: 'text';
-	fontSize?: number;
-	lineHeight?: number;
-	maxWidth?: number;
-	split?: {
-		by: string;
-		getOffsetX?: (char: string, index: number) => number;
-		getOffsetY?: (char: string, index: number) => number;
-	};
-}
-
-interface ImageFillingBox extends BaseFillingBox {
-	type: 'image';
-	renderAsImage: boolean;
-	maxWidth: number;
-	maxHeight: number;
-}
-
-interface BaseFillingBox {
-	key: keyof SignatoriesWithSignature;
-	x: number;
-	y: number;
-}
+import type { ImageFillingBox, TextFillingBox } from '../models/filling-box';
 
 const sourceFiles = readdirSync(OUTPUT_DIR).filter(
 	(file) => file.startsWith(SIGNATURE_OUTPUT_PREFIX) && file.endsWith('.csv'),
