@@ -65,7 +65,8 @@ const getUser = (auth: Auth): Promise<User> => {
 };
 
 export const submitDocument = async (document: FormDocument) => {
-	if (getEnv('DEMO_MODE')) {
+	if (getEnv('PUBLIC_DEMO_MODE')) {
+		console.log(document);
 		return new Promise<void>((res) => setTimeout(res, 2000));
 	}
 
