@@ -1,5 +1,5 @@
 <script>
-	import Config from '../../e-initiative.config.mjs';
+	import Config from '../../../e-initiative.config.mjs';
 </script>
 
 <iframe

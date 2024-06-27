@@ -7,9 +7,9 @@
 	import PenIcon from '../icons/PenIcon.svelte';
 	import ResetIcon from '../icons/ResetIcon.svelte';
 	import CheckmarkIcon from '../icons/CheckmarkIcon.svelte';
-	import { documentsTable, MAX_LOCATION_LENGTH } from '../models/document';
-	import { submitDocument } from '../utils/firebase';
-	import { validateCitizenId } from '../utils/validater';
+	import { documentsTable, MAX_LOCATION_LENGTH } from '../../models/document';
+	import { submitDocument } from '../../utils/firebase';
+	import { validateCitizenId } from '../../utils/validater';
 
 	let signatureCanvas: HTMLCanvasElement;
 	let signaturePad: SignaturePad;

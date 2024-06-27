@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { LocationByProvince } from '../utils/sheets';
+	import type { LocationByProvince } from '../../utils/sheets';
 
 	export let locationByProvinces: LocationByProvince[];
 
@@ -35,7 +35,7 @@
 				tabindex={pindex}
 				class="collapse collapse-arrow rounded-none border-t-2"
 			>
-				<input type="radio" name="province-accordian" />
+				<input type="radio" name="province-accordion" />
 				<h2
 					class="collapse-title flex flex-row items-center gap-2 px-0 py-4 pt-2"
 				>

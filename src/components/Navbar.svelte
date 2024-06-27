@@ -1,6 +1,6 @@
 <script lang="ts">
 	import scrollama from 'scrollama';
-	import PenIcon from '../icons/PenIcon.svelte';
+	import PenIcon from './icons/PenIcon.svelte';
 	import Sharer from './Sharer.svelte';
 	import { isCampaignEnded } from '../utils/campaign';
 	import { onMount } from 'svelte';
