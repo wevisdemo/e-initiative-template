@@ -4,11 +4,13 @@ Full process template for citizen initiative campaign, from digital signatures c
 
 [View campaign site demo](https://wevisdemo.github.io/e-initiative-template/)
 
+**Table of contents**
+
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
-- [Features](#features)
-- [Usage](#usage)
+- [🌟 Features](#-features)
+- [🔍 Usage](#-usage)
   - [Clone the template](#clone-the-template)
   - [Set up data sources](#set-up-data-sources)
     - [Firebase](#firebase)
@@ -21,12 +23,12 @@ Full process template for citizen initiative campaign, from digital signatures c
   - [Post-campaign scripts](#post-campaign-scripts)
     - [Download signatories' data](#download-signatories-data)
     - [Render PDF files](#render-pdf-files)
-- [Appendix](#appendix)
+- [📚 Appendix](#-appendix)
   - [How to make a legislative initiative?](#how-to-make-a-legislative-initiative)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
-## Features
+## 🌟 Features
 
 1. **Ready to use campaign static website** _(Astro, Svelte, Tailwind and DaisyUI)_
    - An online form with signature pad
@@ -43,7 +45,7 @@ Full process template for citizen initiative campaign, from digital signatures c
 
 Configuration file is provided, but everything can be customized via code.
 
-## Usage
+## 🔍 Usage
 
 Required [Node.js](https://nodejs.org/en) v20 or higher with NPM package manager.
 
@@ -169,7 +171,7 @@ npm run render
 
 Output PDF files will be generated to `/out` directory. Recommend using mock data from `download:local` while adjusting fields' offset configurations and render to see how it look first before using the production data.
 
-## Appendix
+## 📚 Appendix
 
 ### How to make a legislative initiative?
 
