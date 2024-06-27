@@ -9,6 +9,7 @@ export default {
 	petition: {
 		endDate: new Date('2024-10-10 GMT+7'),
 		expectedSignatures: 10000,
+		privacyPolicyUrl: 'https://wevis.info/terms-of-use/',
 		offline: {
 			formUrl: 'petition-form.pdf',
 			formExampleImageUrl: 'https://placehold.co/280x397?text=example',

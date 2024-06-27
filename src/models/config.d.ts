@@ -17,6 +17,8 @@ export interface EInitiativeConfig {
 	petition: {
 		/** Build after campaign end will disable signature submission */
 		endDate: Date;
+		/** URL to privacy policy */
+		privacyPolicyUrl: string;
 		/** Number of signatures goal */
 		expectedSignatures: number;
 		/** Offline channel information
