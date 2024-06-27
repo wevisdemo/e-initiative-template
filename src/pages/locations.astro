@@ -4,6 +4,14 @@ import LocationList from '../components/locations/LocationList.svelte';
 import Body from '../layouts/Body.astro';
 import { getLocations } from '../utils/sheets';
 import UpdateTimestamp from '../components/UpdateTimestamp.svelte';
+import Config from '../../e-initiative.config.mjs';
+
+if (!Config.sheets?.enableLocations) {
+	return new Response(null, {
+		status: 404,
+		statusText: 'Not found',
+	});
+}
 
 const { totalLocations, locationByProvinces } = await getLocations();
 ---
