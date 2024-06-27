@@ -1,4 +1,4 @@
-/** @type {import('./src/types').EInitiativeConfig} */
+/** @type {import('./src/models/config').EInitiativeConfig} */
 export default {
 	metadata: {
 		title: 'E-Initiative Template',
@@ -10,7 +10,7 @@ export default {
 		endDate: new Date('2024-10-10 GMT+7'),
 		expectedSignatures: 10000,
 		offline: {
-			formUrl: `${import.meta.env.BASE_URL}/petition-form.pdf`,
+			formUrl: 'petition-form.pdf',
 			formExampleImageUrl: 'https://placehold.co/280x397?text=example',
 			headquarter: {
 				name: 'ชื่อสถานที่',

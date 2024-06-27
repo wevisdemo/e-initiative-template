@@ -100,7 +100,7 @@ For human-curated data, including offline signatures count and voluntary sign lo
 
 ### Configuration file
 
-Most of the campaign information can be config via [`e-initiative.config.mjs`](e-initiative.config.mjs). Explanation can be found by hovering at the configuration keys (on JSDoc supported IDE) or the type definition file. Configuration should be update first so that you will know what is not covered and require editing the source code.
+Most of the campaign information can be config via [`e-initiative.config.mjs`](e-initiative.config.mjs). Explanation can be found by hovering at the configuration keys (on JSDoc supported IDE) or the [type definition file](src/models/config.d.ts). Configuration should be update first so that you will know what is not covered and require editing the source code.
 
 ### Campaign website
 
