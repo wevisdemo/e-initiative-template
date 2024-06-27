@@ -140,7 +140,7 @@ Note that production build will use `.env.production` and the real Firebase, not
 
 Since Astro use Static Site Generation (SSG), no data from Firebase and Google Sheets will be updated after the build. So we recommended to use CI/CD tools that support schedule deployment such as Github Actions. Then we can periodically re-build and re-deploy in a given period. Don't forget to add all the production environment variables to the CI/CD.
 
-Template also include GitHub Action's workflow file [`.github/workflows/demo.yaml`](.github/workflows/demo.yaml). Please remove it before pushing to GitHub if you don't want to use it. But if you do, don't forget to add all the production environment variables as a repository secrets and remove `DEMO_MODE` env from the _Build with Astro_ step.
+Template also include GitHub Action's workflow file [`.github/workflows/demo.yaml`](.github/workflows/demo.yaml). Please remove it before pushing to GitHub if you don't want to use it. But if you do, don't forget to add all the production environment variables as a repository secrets and remove `PUBLIC_DEMO_MODE` env from the _Build with Astro_ step.
 
 ### Post-campaign scripts
 
