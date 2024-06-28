@@ -21,8 +21,8 @@ Full process template for citizen initiative campaign, from digital signatures c
     - [Build](#build)
     - [Deployment](#deployment)
   - [Post-campaign scripts](#post-campaign-scripts)
-    - [Download signatories' data](#download-signatories-data)
-    - [Render PDF files](#render-pdf-files)
+    - [Test and adjustment with mock data](#test-and-adjustment-with-mock-data)
+    - [Download and render production data](#download-and-render-production-data)
 - [📚 Appendix](#-appendix)
   - [How to make a legislative initiative?](#how-to-make-a-legislative-initiative)
 
@@ -146,30 +146,39 @@ Template also include GitHub Action's workflow file [`.github/workflows/demo.yam
 
 ### Post-campaign scripts
 
-#### Download signatories' data
+Your PDF output template might not have the same field value/position as our given template. Before using the thoudsand of production records, we recommend testing with one record of mock data first.
 
-To get signatories' data in CSV format:
+#### Test and adjustment with mock data
+
+To get mock data (Firebase emulator must be running from `dev` or `dev:firebase` command):
 
 ```sh
-npm run download:local # from Firebase emulator
-npm run download:prod  # from Firebase in production
+npm run download:local
 ```
 
-Use `download:local` to get mock data for PDF rendering adjustment. (Firebase emulator must be running from `dev` or `dev:firebase` command)
+Output CSV files will be generated to `/out` directory: one version with base64 signature data, one version without it. Then start the renderer in watch mode:
 
-Use `download:prod` to get the production data after the campaign end.
+```sh
+npm run render:watch
+```
 
-Duplicated or invalid record will be filtered out. Output CSV files will be generated to `/out` directory. One version with base64 signature data, one version without it.
+The output PDF files will be re-generated to `/out` directory everytime any file has changed. Keep adjusting the `renderer` config in [`e-initiative.config.mjs`](e-initiative.config.mjs) until the output PDF looks pretty.
 
-#### Render PDF files
+#### Download and render production data
 
-Signatories' data must be downloaded first. Then PDF files can be rendered using:
+First, download the production signatories' data in CSV format (duplicated or invalid records will be filtered out):
+
+```sh
+npm run download:prod
+```
+
+Then, render to the PDF files:
 
 ```sh
 npm run render
 ```
 
-Output PDF files will be generated to `/out` directory. Recommend using mock data from `download:local` while adjusting fields' offset configurations and render to see how it look first before using the production data.
+Both CSV and PDF files will be generated to `/out` directory, replacing existing data if exist (eg. from mock data).
 
 ## 📚 Appendix
 
