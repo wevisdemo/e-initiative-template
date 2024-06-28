@@ -1,0 +1,18 @@
+---
+interface Props {
+	class?: string;
+}
+---
+
+<a
+	href="/"
+	class=`flex flex-row items-center gap-1 px-2 text-accent underline ${Astro.props.class}`
+>
+	<svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+		<rect width="16" height="16" fill="white"></rect>
+		<path
+			d="M7 13L7.705 12.295L3.915 8.5H14V7.5H3.915L7.705 3.705L7 3L2 8L7 13Z"
+			fill="currentColor"></path>
+	</svg>
+	<span class="link-01 h-4">กลับหน้าหลัก</span>
+</a>

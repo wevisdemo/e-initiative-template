@@ -4,6 +4,7 @@ import LocationList from '../components/locations/LocationList.svelte';
 import Body from '../layouts/Body.astro';
 import { getLocations } from '../utils/sheets';
 import UpdateTimestamp from '../components/UpdateTimestamp.svelte';
+import BackHomeLink from '../components/BackHomeLink.astro';
 import Config from '../../e-initiative.config.mjs';
 
 if (!Config.sheets?.enableLocations) {
@@ -17,30 +18,18 @@ const { totalLocations, locationByProvinces } = await getLocations();
 ---
 
 <Body>
-	<main class="flex flex-col">
-		<SectionContainer innerClass="flex w-full max-w-screen-md flex-col gap-8">
-			<a
-				href="/"
-				class="flex max-w-2xl flex-row items-center gap-1 px-2 text-accent underline"
-			>
-				<svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-					<rect width="16" height="16" fill="white"></rect>
-					<path
-						d="M7 13L7.705 12.295L3.915 8.5H14V7.5H3.915L7.705 3.705L7 3L2 8L7 13Z"
-						fill="currentColor"></path>
-				</svg>
-				<span class="link-01 h-4">กลับหน้าหลัก</span>
-			</a>
+	<SectionContainer
+		outerClass="relative"
+		innerClass="flex w-full max-w-screen-md flex-col gap-8"
+	>
+		<BackHomeLink class="absolute left-1 top-3" />
 
-			<h1 class="heading-responsive-02 text-center leading-none">
-				มีจุดตั้งโต๊ะทั้งหมด {totalLocations} จุด ใน {
-					locationByProvinces.length
-				}
-				จังหวัด
-			</h1>
-			<UpdateTimestamp class="text-center" />
+		<h1 class="heading-responsive-02 text-center leading-none">
+			มีจุดตั้งโต๊ะทั้งหมด {totalLocations} จุด ใน {locationByProvinces.length}
+			จังหวัด
+		</h1>
+		<UpdateTimestamp class="text-center" />
 
-			<LocationList {locationByProvinces} />
-		</SectionContainer>
-	</main>
+		<LocationList {locationByProvinces} />
+	</SectionContainer>
 </Body>
