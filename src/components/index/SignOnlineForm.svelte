@@ -213,7 +213,7 @@
 		<label class="label cursor-pointer justify-normal space-x-2">
 			<input type="checkbox" name="consent" class="checkbox-primary checkbox" />
 			<span class="label-text"
-				>ข้าพเจ้ายินยอมลงชื่อ <a href="/privacy-policy" class="underline"
+				>ข้าพเจ้ายินยอมลงชื่อ <a href="privacy-policy" class="underline"
 					>อ่านนโยบายการคุ้มครองข้อมูลส่วนบุคคล</a
 				></span
 			>
