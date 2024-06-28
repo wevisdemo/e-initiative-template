@@ -46,30 +46,38 @@
 					{#each locations as { name, openingTime, phone, address, mapUrl }}
 						<li class="body-01 grid gap-y-2 border-t border-base-300 pt-3">
 							<h3 class="heading-03">{name}</h3>
-							<div>
-								<h3 class="heading-01 text-xs">วันและเวลาที่เปิด</h3>
-								<p>{openingTime}</p>
-							</div>
-							<div>
-								<h3 class="heading-01 text-xs">ติดต่อ</h3>
-								<p>{phone}</p>
-							</div>
-							<div>
-								<h3 class="heading-01 text-xs">ที่อยู่</h3>
-								<p>{address}</p>
-								{#if mapUrl}
-									<p class="mt-1">
-										<a
-											href={mapUrl}
-											class="link-01 text-accent underline"
-											target="_blank"
-											rel="noopener noreferrer"
-										>
-											ดูแผนที่
-										</a>
-									</p>
-								{/if}
-							</div>
+							{#if openingTime}
+								<div>
+									<h4 class="heading-01 text-xs">วันและเวลาที่เปิด</h4>
+									<p>{openingTime}</p>
+								</div>
+							{/if}
+							{#if phone}
+								<div>
+									<h4 class="heading-01 text-xs">ติดต่อ</h4>
+									<p>{phone}</p>
+								</div>
+							{/if}
+							{#if address || mapUrl}
+								<div>
+									<h4 class="heading-01 text-xs">ที่อยู่</h4>
+									{#if address}
+										<p>{address}</p>
+									{/if}
+									{#if mapUrl}
+										<p class="mt-1">
+											<a
+												href={mapUrl}
+												class="link-01 text-accent underline"
+												target="_blank"
+												rel="noopener noreferrer"
+											>
+												ดูแผนที่
+											</a>
+										</p>
+									{/if}
+								</div>
+							{/if}
 						</li>
 					{/each}
 				</ul>
