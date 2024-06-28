@@ -34,6 +34,7 @@ Full process template for citizen initiative campaign, from digital signatures c
    - An online form with signature pad
    - Signatures counter, from both offline and online channel
    - Support offline sign locations list
+   - Privacy policy template
    - GitHub Action's Workflow file for build and deploy to Github Pages
 2. **Database configuration** _(Firebase, and Google Sheets with Sheethuahua)_
    - Firebase rules for spamming protection for online submission
@@ -113,6 +114,7 @@ Most of the campaign information can be config via [`e-initiative.config.mjs`](e
 - Color theme defined in [`e-initiative.config.mjs`](e-initiative.config.mjs) is available as a Tailwind class. For VSCode user, Tailwind extension is recommended for Tailwind class auto-completion.
 - Typography CSS global utility classes are defined in [`src/styles/typography.css`](src/styles/typography.css) and ready to be used.
 - Design system is corresponded to the [Figma](https://www.figma.com/design/CmcP7sbvY4KSRshC2fKCfD/e-initiative-template)
+- Don't forget to review the privacy policy in [`src/pages/privacy-policy.astro`](src/pages/privacy-policy.astro) and remove the _"mark"_ tags (for highlighting) after updating the content.
 
 To start Astro development server and Firebase emulator:
 
