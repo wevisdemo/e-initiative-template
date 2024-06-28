@@ -8,9 +8,11 @@
 		"dev:firebase": "firebase emulators:start --import ./mocks/firebase/",
 		"build": "astro build",
 		"preview": "astro preview",
+		"emulator:save": "firebase emulators:export ./mocks/firebase/",
 		"download:local": "NODE_ENV=development node --env-file=.env.development --import tsx ./src/scripts/downloader.ts",
 		"download:prod": "node --env-file=.env.production --import tsx ./src/scripts/downloader.ts",
 		"render": "node --import tsx ./src/scripts/renderer.ts",
+		"render:watch": "node --watch --import tsx ./src/scripts/renderer.ts",
 		"format": "prettier --write --ignore-unknown .",
 		"prepare": "husky"
 	},
