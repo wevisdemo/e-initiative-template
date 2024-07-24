@@ -42,7 +42,7 @@
 				<CardContainer class="space-y-3">
 					<p class="heading-03">วิธีที่ 1 : เดินทางไปลงชื่อที่จุดตั้งโต๊ะ</p>
 					<a
-						href="/locations"
+						href="locations"
 						class="heading-02 btn btn-primary btn-block normal-case text-base-100"
 					>
 						ดูสถานที่ลงชื่อ <LocationIcon />
