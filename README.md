@@ -25,6 +25,7 @@ Full process template for citizen initiative campaign, from digital signatures c
     - [Download and render production data](#download-and-render-production-data)
 - [📚 Appendix](#-appendix)
   - [How to make a legislative initiative?](#how-to-make-a-legislative-initiative)
+- [⚖️ License](#-license)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
