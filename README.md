@@ -1,6 +1,6 @@
 # 🖋️ WeVis's E-Initiative Template
 
-Full process template for citizen initiative campaign, from digital signatures collection to PDF document rendering for legislative submission.
+Full process template for citizen initiative campaign, from digital signatures' collection to PDF document rendering for legislative submission.
 
 [View campaign site demo](https://wevisdemo.github.io/e-initiative-template/)
 
@@ -43,7 +43,7 @@ Full process template for citizen initiative campaign, from digital signatures c
    - Google Sheets template for human-curated data
 3. **Post-campaign scripts** _(pdf-lib and Node.js)_
    - Download online submission signatories' data as CSV files
-   - Render CSV data on the pdf template for legislative submission
+   - Render CSV data on the PDF template for legislative submission
 
 The configuration file is provided, but everything can be customized via code.
 
@@ -91,8 +91,8 @@ ADMIN_PASSWORD=???
 
 For human-curated data, including offline signature count and voluntary sign locations. You can skip this step if your campaign doesn't need both functions.
 
-1. Duplicate [Google Sheets template](https://docs.google.com/spreadsheets/d/1PPl4bIKrNC68nc9sWDp7aolnTv0xiHZYQRlsvnRpAHc/edit?usp=sharing). It contain 2 sheets:
-   - **"offline-signature"** sheets for recoding offline signature count in each day. The total number is the summation of every row.
+1. Duplicate [Google Sheets template](https://docs.google.com/spreadsheets/d/1PPl4bIKrNC68nc9sWDp7aolnTv0xiHZYQRlsvnRpAHc/edit?usp=sharing). It contains 2 sheets:
+   - **"offline-signature"** sheets for recording offline signature count in each day. The total number is the summation of every row.
    - **"locations"** is the sign location showing in the location page.
 2. Grant _"Viewer"_ permission to _"Anyone with the link"_ in Share menu
 3. Obtain Sheets ID from the URL `https://docs.google.com/spreadsheets/d/{sheetsID}/` and add it to the `sheets.id` in [`e-initiative.config.mjs`](e-initiative.config.mjs)
@@ -104,14 +104,14 @@ For human-curated data, including offline signature count and voluntary sign loc
 
 ### Configuration file
 
-Most of the campaign information can be configured via [`e-initiative.config.mjs`](e-initiative.config.mjs). Explanation can be found by hovering at the configuration keys (on JSDoc-supported IDE) or the [type definition file](src/models/config.d.ts). Configuration should be updated first so that you will know what is not covered and require editing the source code.
+Most of the campaign information can be configured via [`e-initiative.config.mjs`](e-initiative.config.mjs). Explanation can be found by hovering at the configuration keys (on JSDoc supported IDE) or the [type definition file](src/models/config.d.ts). Configuration should be updated first so that you will know what is not covered and require editing the source code.
 
 ### Campaign website
 
 #### Development
 
 - Website content can be directly edited through source code. The index page entry point to get started is [`src/pages/index.astro`](src/pages/index.astro).
-- UI components are from either [Daisy UI v3](v3.daisyui.com) or custom-made available in [`src/components`](src/components). Svelte is mainly used but you can install additional[ UI Framework integration for Astro](https://docs.astro.build/en/guides/framework-components/)
+- UI components are from either [Daisy UI v3](v3.daisyui.com) or custom-made available in [`src/components`](src/components). Svelte is mainly used, but you can install additional[ UI Framework integration for Astro](https://docs.astro.build/en/guides/framework-components/)
 - Color theme defined in [`e-initiative.config.mjs`](e-initiative.config.mjs) is available as a Tailwind class. For VSCode users, Tailwind extension is recommended for Tailwind class auto-completion.
 - Typography CSS global utility classes are defined in [`src/styles/typography.css`](src/styles/typography.css) and ready to be used.
 - Design system corresponds to the [Figma](https://www.figma.com/design/CmcP7sbvY4KSRshC2fKCfD/e-initiative-template)
