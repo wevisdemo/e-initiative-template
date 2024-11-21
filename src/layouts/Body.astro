@@ -2,7 +2,7 @@
 import Config from '../../e-initiative.config.mjs';
 import '../styles/global.css';
 import '../styles/typography.css';
-
+import Footer from '../components/Footer.astro';
 interface Props {
 	title?: string;
 	description?: string;
@@ -40,7 +40,11 @@ const previewImageUrl =
 				Config.theme.stylesheets.map((href) => <link {href} rel="stylesheet" />)
 		}
 	</head>
-	<body class="body-02">
-		<slot />
+	<body class="flex min-h-screen flex-col">
+		<main class="body-02 flex-1">
+			<slot />
+		</main>
+		<Footer />
+		<slot name="after-footer" />
 	</body>
 </html>

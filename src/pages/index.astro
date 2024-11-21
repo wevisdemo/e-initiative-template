@@ -11,7 +11,7 @@ import { isCampaignEnded } from '../utils/campaign';
 ---
 
 <Body>
-	<main class="flex flex-col">
+	<div class="flex flex-col">
 		<LandingSection />
 		<IntroSection />
 		{
@@ -23,6 +23,6 @@ import { isCampaignEnded } from '../utils/campaign';
 			)
 		}
 		<AboutSection />
-		<Navbar client:idle />
-	</main>
+	</div>
+	<Navbar slot="after-footer" client:idle />
 </Body>
