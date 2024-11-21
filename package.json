@@ -5,7 +5,7 @@
 	"scripts": {
 		"dev": "concurrently npm:dev:*",
 		"dev:astro": "astro dev",
-		"dev:firebase": "firebase emulators:start --import ./mocks/firebase/",
+		"dev:firebase": "firebase emulators:start --import ./mocks/firebase/ --project default",
 		"build": "astro build",
 		"preview": "astro preview",
 		"emulator:save": "firebase emulators:export ./mocks/firebase/",
