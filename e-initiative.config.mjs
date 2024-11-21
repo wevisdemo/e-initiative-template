@@ -7,7 +7,7 @@ export default {
 		previewImageUrl: 'https://wevisdemo.github.io/e-initiative-template/og.png',
 	},
 	petition: {
-		endDate: new Date('2024-10-10 GMT+7'),
+		endDate: new Date('2030-10-10 GMT+7'),
 		expectedSignatures: 10000,
 		offline: {
 			formUrl: 'petition-form.pdf',

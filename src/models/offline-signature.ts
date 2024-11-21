@@ -1,8 +1,14 @@
-import { Table, Column, type RowType } from 'sheethuahua';
+import {
+	Object,
+	Column,
+	type StaticDecode,
+	asDate,
+	asNumber,
+} from 'sheethuahua';
 
-export const offlineSignatureTable = Table('offline-signature', {
-	date: Column.Date(),
-	count: Column.Number(),
+export const offlineSignatureTable = Object({
+	date: Column('วันที่*', asDate()),
+	count: Column('จำนวนคนที่ลงชื่อ*', asNumber()),
 });
 
-export type OfflineSignature = RowType<typeof offlineSignatureTable>;
+export type OfflineSignature = StaticDecode<typeof offlineSignatureTable>;

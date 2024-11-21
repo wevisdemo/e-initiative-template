@@ -1,12 +1,12 @@
-import { Table, Column, type RowType } from 'sheethuahua';
+import { Object, Column, type StaticDecode, asString } from 'sheethuahua';
 
-export const locationTable = Table('locations', {
-	province: Column.String(),
-	name: Column.String(),
-	openingTime: Column.OptionalString(),
-	phone: Column.OptionalString(),
-	address: Column.OptionalString(),
-	mapUrl: Column.OptionalString(),
+export const locationTable = Object({
+	province: Column('จังหวัด*', asString()),
+	name: Column('ชื่อสถานที่*', asString()),
+	openingTime: Column('เวลาเปิดทำการ', asString().optional()),
+	phone: Column('เบอร์โทรศัพท์', asString().optional()),
+	address: Column('ที่อยู่', asString().optional()),
+	mapUrl: Column('ลิงก์ไป Google Maps', asString().optional()),
 });
 
-export type Location = RowType<typeof locationTable>;
+export type Location = StaticDecode<typeof locationTable>;
