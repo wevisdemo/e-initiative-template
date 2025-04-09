@@ -53,7 +53,7 @@ export default {
 	},
 	sheets: {
 		id: '1PPl4bIKrNC68nc9sWDp7aolnTv0xiHZYQRlsvnRpAHc',
-		enableOfflineSignature: true,
+		enableOfflineSignature: false,
 		enableLocations: true,
 	},
 	renderer: {
