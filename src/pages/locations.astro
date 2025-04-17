@@ -28,7 +28,7 @@ const { totalLocations, locationByProvinces } = await getLocations();
 			มีจุดตั้งโต๊ะทั้งหมด {totalLocations} จุด ใน {locationByProvinces.length}
 			จังหวัด
 		</h1>
-		<UpdateTimestamp class="text-center" />
+		<UpdateTimestamp client:load date={new Date()} class="text-center" />
 
 		<LocationList {locationByProvinces} />
 	</SectionContainer>

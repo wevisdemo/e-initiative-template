@@ -48,7 +48,7 @@ const documentCount =
 					})
 				</p>
 			</div>
-			<UpdateTimestamp />
+			<UpdateTimestamp client:load date={new Date()} />
 			{
 				isCampaignEnded ? (
 					<div class="flex flex-row items-center gap-2">
