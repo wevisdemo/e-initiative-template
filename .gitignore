@@ -17,6 +17,10 @@ pnpm-debug.log*
 .env
 .env.production
 
+# Firebase Functions
+functions/lib/
+functions/.secret.local
+
 # macOS-specific files
 .DS_Store
 

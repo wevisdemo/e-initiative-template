@@ -39,6 +39,10 @@ const previewImageUrl =
 			Config.theme.stylesheets &&
 				Config.theme.stylesheets.map((href) => <link {href} rel="stylesheet" />)
 		}
+		<script
+			src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit"
+			async
+			defer></script>
 	</head>
 	<body class="flex min-h-screen flex-col">
 		<main class="body-02 flex-1">

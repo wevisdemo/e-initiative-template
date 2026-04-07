@@ -11,9 +11,6 @@ import {
 import {
 	getFirestore,
 	collection,
-	serverTimestamp,
-	writeBatch,
-	doc,
 	query,
 	getCountFromServer,
 	connectFirestoreEmulator,
@@ -22,6 +19,11 @@ import {
 	limit,
 	startAfter,
 } from 'firebase/firestore';
+import {
+	getFunctions,
+	httpsCallable,
+	connectFunctionsEmulator,
+} from 'firebase/functions';
 import FirebaseOptions from '../../firebase.json';
 import { type FormDocument, type SubmittedDocument } from '../models/document';
 
@@ -40,6 +42,7 @@ try {
 
 const firestore = getFirestore(app);
 const auth = getAuth();
+const functions = getFunctions(app);
 
 if (import.meta.env?.DEV || process.env?.NODE_ENV === 'development') {
 	connectFirestoreEmulator(
@@ -51,6 +54,7 @@ if (import.meta.env?.DEV || process.env?.NODE_ENV === 'development') {
 		auth,
 		`http://127.0.0.1:${FirebaseOptions.emulators.auth.port}`,
 	);
+	connectFunctionsEmulator(functions, '127.0.0.1', 5001);
 }
 
 const getUser = (auth: Auth): Promise<User> => {
@@ -64,29 +68,20 @@ const getUser = (auth: Auth): Promise<User> => {
 	});
 };
 
-export const submitDocument = async (document: FormDocument) => {
+export const submitDocument = async (
+	document: FormDocument,
+	turnstileToken: string,
+) => {
 	if (getEnv('PUBLIC_DEMO_MODE')) {
 		console.log(document);
 		return new Promise<void>((res) => setTimeout(res, 2000));
 	}
 
 	await signInAnonymously(auth);
-	const user = await getUser(auth);
+	await getUser(auth);
 
-	const batch = writeBatch(firestore);
-	const docRef = doc(collection(firestore, COLLECTION.Documents));
-	const userRef = doc(firestore, COLLECTION.Users, user.uid);
-
-	const submittedDocument: Record<keyof SubmittedDocument, unknown> = {
-		...document,
-		uid: user.uid,
-		timestamp: serverTimestamp(),
-	};
-
-	batch.set(docRef, submittedDocument);
-	batch.set(userRef, { timestamp: serverTimestamp() }, { merge: true });
-
-	return batch.commit();
+	const submitFn = httpsCallable(functions, 'submitDocument');
+	await submitFn({ document, turnstileToken });
 };
 
 export const countSubmittedDocuments = async (): Promise<number> => {
@@ -134,5 +129,8 @@ function signInAsAdmin() {
 }
 
 function getEnv(key: string) {
-	return import.meta.env?.[key] || process?.env?.[key];
+	return (
+		import.meta.env?.[key] ||
+		(typeof process !== 'undefined' && process.env?.[key])
+	);
 }
