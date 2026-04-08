@@ -9,28 +9,12 @@ import {
 	connectAuthEmulator,
 } from 'firebase/auth';
 import {
-	getFirestore,
-	collection,
-	query,
-	getCountFromServer,
-	connectFirestoreEmulator,
-	getDocs,
-	orderBy,
-	limit,
-	startAfter,
-} from 'firebase/firestore';
-import {
 	getFunctions,
 	httpsCallable,
 	connectFunctionsEmulator,
 } from 'firebase/functions';
 import FirebaseOptions from '../../firebase.json';
 import { type FormDocument, type SubmittedDocument } from '../models/document';
-
-enum COLLECTION {
-	Documents = 'documents',
-	Users = 'users',
-}
 
 let app: FirebaseApp;
 
@@ -40,16 +24,10 @@ try {
 	app = initializeApp(JSON.parse(getEnv('PUBLIC_FIREBASE_CONFIG') || '{}'));
 }
 
-const firestore = getFirestore(app);
 const auth = getAuth();
 const functions = getFunctions(app);
 
 if (import.meta.env?.DEV || process.env?.NODE_ENV === 'development') {
-	connectFirestoreEmulator(
-		firestore,
-		'127.0.0.1',
-		FirebaseOptions.emulators.firestore.port,
-	);
 	connectAuthEmulator(
 		auth,
 		`http://127.0.0.1:${FirebaseOptions.emulators.auth.port}`,
@@ -67,6 +45,9 @@ const getUser = (auth: Auth): Promise<User> => {
 		});
 	});
 };
+
+export const signIn = (email: string, password: string) =>
+	signInWithEmailAndPassword(auth, email, password);
 
 export const submitDocument = async (
 	document: FormDocument,
@@ -86,12 +67,12 @@ export const submitDocument = async (
 
 export const countSubmittedDocuments = async (): Promise<number> => {
 	try {
-		await signInAsAdmin();
-
-		const q = query(collection(firestore, COLLECTION.Documents));
-		const snapshot = await getCountFromServer(q);
-
-		return snapshot.data().count;
+		const countFn = httpsCallable<void, { count: number }>(
+			functions,
+			'countDocuments',
+		);
+		const result = await countFn();
+		return result.data.count;
 	} catch (e) {
 		console.warn(e);
 		return 0;
@@ -102,30 +83,13 @@ export async function getDocuments(
 	pageLimit: number,
 	lastCitizenId?: string,
 ): Promise<SubmittedDocument[]> {
-	const documents: SubmittedDocument[] = [];
+	const listFn = httpsCallable<
+		{ pageLimit: number; lastCitizenId?: string },
+		{ documents: SubmittedDocument[] }
+	>(functions, 'listDocuments');
 
-	await signInAsAdmin();
-
-	const res = await getDocs(
-		query(
-			collection(firestore, COLLECTION.Documents),
-			orderBy('citizenId'),
-			limit(pageLimit),
-			...(lastCitizenId ? [startAfter(lastCitizenId)] : []),
-		),
-	);
-
-	res.forEach((doc) => documents.push(doc.data() as SubmittedDocument));
-
-	return documents;
-}
-
-function signInAsAdmin() {
-	return signInWithEmailAndPassword(
-		auth,
-		getEnv('ADMIN_EMAIL'),
-		getEnv('ADMIN_PASSWORD'),
-	);
+	const result = await listFn({ pageLimit, lastCitizenId });
+	return result.data.documents;
 }
 
 function getEnv(key: string) {

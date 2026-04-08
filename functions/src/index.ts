@@ -45,6 +45,16 @@ async function verifyTurnstileToken(
 	return data.success;
 }
 
+function assertAdmin(request: { auth?: { token: { email?: string } } }) {
+	const adminEmail = process.env.ADMIN_EMAIL;
+	if (!request.auth) {
+		throw new HttpsError('unauthenticated', 'Authentication is required.');
+	}
+	if (!adminEmail || request.auth.token.email !== adminEmail) {
+		throw new HttpsError('permission-denied', 'Admin access required.');
+	}
+}
+
 export const submitDocument = onCall(async (request) => {
 	const { document, turnstileToken } = request.data as SubmitRequest;
 
@@ -93,4 +103,34 @@ export const submitDocument = onCall(async (request) => {
 	await batch.commit();
 
 	return { success: true };
+});
+
+export const countDocuments = onCall(async () => {
+	const firestore = getFirestore();
+	const snapshot = await firestore.collection('documents').count().get();
+	return { count: snapshot.data().count };
+});
+
+export const listDocuments = onCall(async (request) => {
+	assertAdmin(request);
+
+	const { pageLimit, lastCitizenId } = request.data as {
+		pageLimit: number;
+		lastCitizenId?: string;
+	};
+
+	const firestore = getFirestore();
+	let q: FirebaseFirestore.Query = firestore
+		.collection('documents')
+		.orderBy('citizenId')
+		.limit(pageLimit);
+
+	if (lastCitizenId) {
+		q = q.startAfter(lastCitizenId);
+	}
+
+	const snapshot = await q.get();
+	const documents = snapshot.docs.map((doc) => doc.data());
+
+	return { documents };
 });
