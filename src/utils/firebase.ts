@@ -1,9 +1,6 @@
 import { initializeApp, getApp, type FirebaseApp } from 'firebase/app';
 import {
-	type Auth,
-	type User,
 	getAuth,
-	onAuthStateChanged,
 	signInAnonymously,
 	signInWithEmailAndPassword,
 	connectAuthEmulator,
@@ -32,19 +29,8 @@ if (import.meta.env?.DEV || process.env?.NODE_ENV === 'development') {
 		auth,
 		`http://127.0.0.1:${FirebaseOptions.emulators.auth.port}`,
 	);
-	connectFunctionsEmulator(functions, '127.0.0.1', 5001);
+	connectFunctionsEmulator(functions, '127.0.0.1', 9092);
 }
-
-const getUser = (auth: Auth): Promise<User> => {
-	return new Promise((resolve, reject) => {
-		onAuthStateChanged(auth, (user) => {
-			if (user) {
-				return resolve(user);
-			}
-			return reject();
-		});
-	});
-};
 
 export const signIn = (email: string, password: string) =>
 	signInWithEmailAndPassword(auth, email, password);
@@ -59,7 +45,6 @@ export const submitDocument = async (
 	}
 
 	await signInAnonymously(auth);
-	await getUser(auth);
 
 	const submitFn = httpsCallable(functions, 'submitDocument');
 	await submitFn({ document, turnstileToken });

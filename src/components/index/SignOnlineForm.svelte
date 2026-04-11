@@ -51,7 +51,6 @@
 				turnstileToken = null;
 				turnstileRef?.reset();
 			} catch (e) {
-				// console.error('submitDocument error:', e);
 				errorDialog.showModal();
 			}
 			isLoading = false;
