@@ -14,6 +14,7 @@ Full process template for citizen initiative campaign, from digital signatures' 
   - [Clone the template](#clone-the-template)
   - [Set up data sources](#set-up-data-sources)
     - [Firebase](#firebase)
+    - [Cloudflare Turnstile](#cloudflare-turnstile)
     - [Google Sheets](#google-sheets)
   - [Configuration file](#configuration-file)
   - [Campaign website](#campaign-website)
@@ -37,7 +38,8 @@ Full process template for citizen initiative campaign, from digital signatures' 
    - Support offline sign locations list
    - Privacy policy template
    - GitHub Action's Workflow file for build and deploy to GitHub Pages
-2. **Database configuration** _(Firebase, and Google Sheets with Sheethuahua)_
+2. **Database configuration** _(Firebase, Cloudflare Turnstile, and Google Sheets with Sheethuahua)_
+   - Cloudflare Turnstile integration for bot/spam protection on the online form
    - Firebase rules for spamming protection for online submission
    - Firebase emulator with mocked data for local development
    - Google Sheets template for human-curated data
@@ -86,6 +88,32 @@ ADMIN_PASSWORD=???
 ```
 
 **Note:** There is a `.env.development` with mocked data for working with the Firebase emulator in the local development environment. You don't need to change anything there.
+
+#### Cloudflare Turnstile
+
+[Cloudflare Turnstile](https://developers.cloudflare.com/turnstile/) is used as a CAPTCHA alternative to protect the online signature form from bots and spam submissions. The token is verified server-side in the Firebase Cloud Function before a submission is accepted.
+
+1. Go to the [Cloudflare dashboard](https://dash.cloudflare.com/) and navigate to **Turnstile**.
+2. Add a new site and configure the allowed hostnames for your campaign domain.
+3. Copy the **Site Key** and add it to your `.env.production` file:
+   ```env
+   PUBLIC_TURNSTILE_SITE_KEY=<your-site-key>
+   ```
+4. Copy the **Secret Key** and add it to the Cloud Functions environment. If using the Firebase CLI, set it via `functions/.env`:
+   ```env
+   TURNSTILE_SECRET_KEY=<your-secret-key>
+   ```
+
+Your `.env.production` should now include:
+
+```env
+PUBLIC_FIREBASE_CONFIG={"apiKey": "???", ...}
+PUBLIC_TURNSTILE_SITE_KEY=???
+ADMIN_EMAIL=???
+ADMIN_PASSWORD=???
+```
+
+**Note:** The `.env.development` and `functions/.env.local` files already contain Cloudflare's [test keys](https://developers.cloudflare.com/turnstile/troubleshooting/testing/) that always pass verification, so Turnstile works out of the box in the local development environment.
 
 #### Google Sheets
 
