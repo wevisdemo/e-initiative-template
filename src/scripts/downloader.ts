@@ -5,7 +5,7 @@ import {
 	mkdirSync,
 	existsSync,
 } from 'fs';
-import { getDocuments } from '../utils/firebase';
+import { signIn, getDocuments } from '../utils/firebase';
 import type { SubmittedDocument } from '../models/document';
 import { validateCitizenId } from '../utils/validater';
 import { csvFormat } from 'd3-dsv';
@@ -19,6 +19,17 @@ let lastCitizenId: string | undefined;
 let batchCount = 1;
 let isCompleted = false;
 
+const adminEmail = process.env.ADMIN_EMAIL;
+const adminPassword = process.env.ADMIN_PASSWORD;
+
+if (!adminEmail || !adminPassword) {
+	console.error(
+		'ADMIN_EMAIL and ADMIN_PASSWORD environment variables are required.',
+	);
+	process.exit(1);
+}
+
+await signIn(adminEmail, adminPassword);
 console.log('Retrieving documents...');
 
 if (!existsSync(OUTPUT_DIR)) mkdirSync(OUTPUT_DIR);

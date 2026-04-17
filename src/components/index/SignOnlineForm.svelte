@@ -7,6 +7,7 @@
 	import PenIcon from '../icons/PenIcon.svelte';
 	import ResetIcon from '../icons/ResetIcon.svelte';
 	import CheckmarkIcon from '../icons/CheckmarkIcon.svelte';
+	import Turnstile from '../Turnstile.svelte';
 	import { documentsTable, MAX_LOCATION_LENGTH } from '../../models/document';
 	import { submitDocument } from '../../utils/firebase';
 	import { validateCitizenId } from '../../utils/validater';
@@ -16,8 +17,10 @@
 	let successDialog: HTMLDialogElement;
 	let errorDialog: HTMLDialogElement;
 	let canvasResizeObserver: ResizeObserver;
+	let turnstileRef: Turnstile;
 	let signatureEnabled = false;
 	let isLoading = false;
+	let turnstileToken: string | null = null;
 
 	const { form, setTouched, setData, data, reset } = createForm({
 		validate: (values) => {
@@ -41,10 +44,12 @@
 					throw [...Value.Errors(documentsTable, values)];
 				}
 
-				await submitDocument(values);
+				await submitDocument(values, turnstileToken!);
 				successDialog.showModal();
 				clearPad();
 				reset();
+				turnstileToken = null;
+				turnstileRef?.reset();
 			} catch (e) {
 				errorDialog.showModal();
 			}
@@ -83,6 +88,7 @@
 			<span class="body-03 label-text font-bold">เขียนที่*</span>
 		</label>
 		<input
+			id="location"
 			type="string"
 			name="location"
 			class="input rounded-sm bg-base-200 {messages ? 'input-error' : ''}"
@@ -99,6 +105,7 @@
 			<span class="body-03 label-text font-bold">เลขประจำตัวประชาชน*</span>
 		</label>
 		<input
+			id="citizenId"
 			type="string"
 			name="citizenId"
 			class="input rounded-sm bg-base-200 {messages ? 'input-error' : ''}"
@@ -116,6 +123,7 @@
 				<span class="body-03 label-text font-bold">คำนำหน้า</span>
 			</label>
 			<select
+				id="prefix"
 				class="select max-w-xs rounded-sm bg-base-200"
 				disabled={isLoading}
 				name="prefix"
@@ -132,6 +140,7 @@
 					<span class="body-03 label-text font-bold">ชื่อ*</span>
 				</label>
 				<input
+					id="firstname"
 					type="text"
 					name="firstname"
 					class="input w-full rounded-sm bg-base-200 {messages
@@ -152,6 +161,7 @@
 			<span class="body-03 label-text font-bold">นามสกุล*</span>
 		</label>
 		<input
+			id="lastname"
 			type="text"
 			name="lastname"
 			class="input rounded-sm bg-base-200 {messages ? 'input-error' : ''}"
@@ -219,10 +229,18 @@
 			>
 		</label>
 	</div>
+	<div class="mt-2 flex justify-center">
+		<Turnstile
+			bind:this={turnstileRef}
+			on:verify={(e) => (turnstileToken = e.detail)}
+			on:error={() => (turnstileToken = null)}
+			on:expire={() => (turnstileToken = null)}
+		/>
+	</div>
 	<button
 		type="submit"
 		class="body-03 btn btn-primary mt-2 w-full text-base font-bold text-base-100 disabled:text-base-100"
-		disabled={!$data.consent || isLoading}
+		disabled={!$data.consent || !turnstileToken || isLoading}
 	>
 		{#if !isLoading}
 			ลงชื่อเลย

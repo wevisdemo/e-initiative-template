@@ -2,12 +2,22 @@
 	"firestore": {
 		"rules": "firestore.rules"
 	},
+	"functions": [
+		{
+			"source": "functions",
+			"codebase": "default",
+			"predeploy": ["pnpm --prefix \"$RESOURCE_DIR\" run build"]
+		}
+	],
 	"emulators": {
 		"auth": {
 			"port": 9091
 		},
 		"firestore": {
 			"port": 9090
+		},
+		"functions": {
+			"port": 9092
 		},
 		"ui": {
 			"enabled": true
