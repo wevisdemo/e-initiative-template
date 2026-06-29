@@ -12,15 +12,15 @@
 	import { submitDocument } from '../../utils/firebase';
 	import { validateCitizenId } from '../../utils/validater';
 
-	let signatureCanvas: HTMLCanvasElement;
+	let signatureCanvas: HTMLCanvasElement = $state()!;
 	let signaturePad: SignaturePad;
-	let successDialog: HTMLDialogElement;
-	let errorDialog: HTMLDialogElement;
+	let successDialog: HTMLDialogElement = $state()!;
+	let errorDialog: HTMLDialogElement = $state()!;
 	let canvasResizeObserver: ResizeObserver;
-	let turnstileRef: Turnstile;
-	let signatureEnabled = false;
-	let isLoading = false;
-	let turnstileToken: string | null = null;
+	let turnstileRef: Turnstile = $state()!;
+	let signatureEnabled = $state(false);
+	let isLoading = $state(false);
+	let turnstileToken: string | null = $state(null);
 
 	const { form, setTouched, setData, data, reset } = createForm({
 		validate: (values) => {
@@ -194,7 +194,7 @@
 					<button
 						type="button"
 						class="btn btn-accent btn-outline absolute bottom-4 right-[10px] z-20"
-						on:click={clearPad}
+						onclick={clearPad}
 					>
 						ล้าง <ResetIcon />
 					</button>
@@ -205,7 +205,7 @@
 						<button
 							type="button"
 							class="body-03 btn bg-base-100 font-bold shadow-xl"
-							on:click={() => (signatureEnabled = true)}
+							onclick={() => (signatureEnabled = true)}
 						>
 							คลิกเพื่อกรอกลายเซ็น
 							<PenIcon />
@@ -232,9 +232,9 @@
 	<div class="mt-2 flex justify-center">
 		<Turnstile
 			bind:this={turnstileRef}
-			on:verify={(e) => (turnstileToken = e.detail)}
-			on:error={() => (turnstileToken = null)}
-			on:expire={() => (turnstileToken = null)}
+			onverify={(token) => (turnstileToken = token)}
+			onerror={() => (turnstileToken = null)}
+			onexpire={() => (turnstileToken = null)}
 		/>
 	</div>
 	<button

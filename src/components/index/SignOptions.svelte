@@ -8,12 +8,13 @@
 	import PostAddress from './PostAddress.svelte';
 	import HeadquarterMap from './HeadquarterMap.svelte';
 
-	enum Channels {
-		Online = 'แบบออนไลน์',
-		Offline = 'แบบกระดาษ',
-	}
+	const Channels = {
+		Online: 'แบบออนไลน์',
+		Offline: 'แบบกระดาษ',
+	} as const;
+	type Channel = (typeof Channels)[keyof typeof Channels];
 
-	let selectedChannel: Channels = Channels.Online;
+	let selectedChannel: Channel = $state(Channels.Online);
 </script>
 
 <div class="flex flex-1 flex-col gap-6">
@@ -58,9 +59,7 @@
 						: ''}ดาวน์โหลดแบบฟอร์มมากรอก
 				</h1>
 				<StepBlock>
-					<svelte:fragment slot="heading"
-						>1. ดาวน์โหลดแบบฟอร์ม และพิมพ์ลงกระดาษ A4</svelte:fragment
-					>
+					{#snippet heading()}1. ดาวน์โหลดแบบฟอร์ม และพิมพ์ลงกระดาษ A4{/snippet}
 					<a
 						target="_blank"
 						href={Config.petition.offline.formUrl}
@@ -70,9 +69,7 @@
 					</a>
 				</StepBlock>
 				<StepBlock>
-					<svelte:fragment slot="heading"
-						>2. ลงลายมือชื่อบนแบบฟอร์ม</svelte:fragment
-					>
+					{#snippet heading()}2. ลงลายมือชื่อบนแบบฟอร์ม{/snippet}
 					<p>ชวนคนใกล้ๆ ตัวมาร่วมลงชื่อให้เต็มแผ่นเลยก็ได้</p>
 					<img
 						class="mx-auto"
@@ -81,16 +78,14 @@
 					/>
 				</StepBlock>
 				<StepBlock>
-					<svelte:fragment slot="heading"
-						>3. ส่งเอกสารรวบรวมรายชื่อมายัง {Config.petition.offline.headquarter
-							.name}
+					{#snippet heading()}3. ส่งเอกสารรวบรวมรายชื่อมายัง {Config.petition
+							.offline?.headquarter.name}
 						<span class="text-error"
 							>ภายในวันที่ {Config.petition.endDate.toLocaleDateString(
 								'TH-th',
 								{ dateStyle: 'medium' },
 							)}</span
-						></svelte:fragment
-					>
+						>{/snippet}
 					<div class="space-y-2">
 						<p>3.1. นำส่งด้วยตัวเอง</p>
 						<HeadquarterMap />

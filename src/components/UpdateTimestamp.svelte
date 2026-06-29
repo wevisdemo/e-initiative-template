@@ -1,9 +1,14 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 
-	export let date: Date;
+	interface Props {
+		date: Date;
+		class?: string;
+	}
 
-	let updatedText = '';
+	let { date, class: className = '' }: Props = $props();
+
+	let updatedText = $state('');
 
 	onMount(() => {
 		const [day, month, year, time] = new Date(date)
@@ -17,10 +22,6 @@
 	});
 </script>
 
-<p
-	class="body-01 opacity-50 {updatedText
-		? 'block'
-		: 'invisible'} {$$restProps.class}"
->
+<p class="body-01 opacity-50 {updatedText ? 'block' : 'invisible'} {className}">
 	อัปเดตข้อมูลล่าสุด {updatedText}
 </p>

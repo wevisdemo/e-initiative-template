@@ -5,7 +5,7 @@
 	import { isCampaignEnded } from '../utils/campaign';
 	import { onMount } from 'svelte';
 
-	let isShow = false;
+	let isShow = $state(false);
 
 	onMount(() => {
 		const scroller = scrollama();

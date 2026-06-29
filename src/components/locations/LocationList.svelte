@@ -1,13 +1,19 @@
 <script lang="ts">
 	import type { LocationByProvince } from '../../utils/sheets';
 
-	export let locationByProvinces: LocationByProvince[];
+	interface Props {
+		locationByProvinces: LocationByProvince[];
+	}
 
-	let keyword = '';
+	let { locationByProvinces }: Props = $props();
 
-	$: filteredProvinces = locationByProvinces
-		.filter(({ province }) => (keyword ? province.includes(keyword) : true))
-		.sort();
+	let keyword = $state('');
+
+	let filteredProvinces = $derived(
+		locationByProvinces
+			.filter(({ province }) => (keyword ? province.includes(keyword) : true))
+			.sort(),
+	);
 </script>
 
 <div class="relative">

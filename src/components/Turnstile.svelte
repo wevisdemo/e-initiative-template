@@ -1,17 +1,25 @@
 <script lang="ts">
-	import { onMount, onDestroy, createEventDispatcher } from 'svelte';
+	import { onMount, onDestroy } from 'svelte';
 
-	export let siteKey: string = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY || '';
-	export let theme: 'light' | 'dark' | 'auto' = 'auto';
-	export let size: 'normal' | 'compact' = 'normal';
+	interface Props {
+		siteKey?: string;
+		theme?: 'light' | 'dark' | 'auto';
+		size?: 'normal' | 'compact';
+		onverify?: (token: string) => void;
+		onerror?: () => void;
+		onexpire?: () => void;
+	}
 
-	const dispatch = createEventDispatcher<{
-		verify: string;
-		error: void;
-		expire: void;
-	}>();
+	let {
+		siteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY || '',
+		theme = 'auto',
+		size = 'normal',
+		onverify,
+		onerror,
+		onexpire,
+	}: Props = $props();
 
-	let container: HTMLDivElement;
+	let container: HTMLDivElement = $state()!;
 	let widgetId: string | undefined;
 
 	function renderWidget() {
@@ -21,9 +29,9 @@
 			sitekey: siteKey,
 			theme,
 			size,
-			callback: (token: string) => dispatch('verify', token),
-			'error-callback': () => dispatch('error'),
-			'expired-callback': () => dispatch('expire'),
+			callback: (token: string) => onverify?.(token),
+			'error-callback': () => onerror?.(),
+			'expired-callback': () => onexpire?.(),
 		});
 	}
 
