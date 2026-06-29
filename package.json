@@ -13,11 +13,12 @@
 		"download:prod": "node --env-file=.env.production --import tsx ./src/scripts/downloader.ts",
 		"render": "node --import tsx ./src/scripts/renderer.ts",
 		"render:watch": "node --watch --import tsx ./src/scripts/renderer.ts",
+		"check": "astro check --minimumSeverity warning",
 		"format": "prettier --write --ignore-unknown .",
 		"prepare": "husky"
 	},
 	"lint-staged": {
-		"*.md": "doctoc --github",
+		"README.md": "doctoc --github",
 		"*": "prettier --write --ignore-unknown"
 	},
 	"dependencies": {
