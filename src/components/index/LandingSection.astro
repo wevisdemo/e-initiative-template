@@ -40,12 +40,22 @@ const documentCount =
 					ลงแล้ว {documentCount.toLocaleString()} คน
 				</p>
 				<p>
-					{dayElapsed > 0 && <>เหลือเวลาอีก {dayElapsed} วัน</>}
-					(ภายใน {
-						Config.petition.endDate.toLocaleDateString('TH-th', {
-							dateStyle: 'medium',
-						})
-					})
+					{
+						dayElapsed !== undefined && dayElapsed > 0 && (
+							<>เหลือเวลาอีก {dayElapsed} วัน</>
+						)
+					}
+					{
+						Config.petition.endDate && (
+							<>
+								(ภายใน{' '}
+								{Config.petition.endDate.toLocaleDateString('TH-th', {
+									dateStyle: 'medium',
+								})}
+								)
+							</>
+						)
+					}
 				</p>
 			</div>
 			<UpdateTimestamp client:load date={new Date()} />

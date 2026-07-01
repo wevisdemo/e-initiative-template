@@ -76,13 +76,16 @@ import PostAddress from './PostAddress.svelte';
 				>3. ส่งเอกสารรวบรวมรายชื่อมายัง {
 					Config.petition.offline?.headquarter.name
 				}
-				<span class="text-error"
-					>ภายในวันที่ {
-						Config.petition.endDate.toLocaleDateString('TH-th', {
-							dateStyle: 'medium',
-						})
-					}</span
-				></Fragment
+				{
+					Config.petition.endDate && (
+						<span class="text-error">
+							ภายในวันที่{' '}
+							{Config.petition.endDate.toLocaleDateString('TH-th', {
+								dateStyle: 'medium',
+							})}
+						</span>
+					)
+				}</Fragment
 			>
 			<div class="space-y-2">
 				<p>3.1. นำส่งด้วยตัวเอง</p>

@@ -15,8 +15,10 @@ export interface EInitiativeConfig {
 	};
 	/** Pettition related information */
 	petition: {
-		/** Build after campaign end will disable signature submission */
-		endDate: Date;
+		/** Build after campaign end will disable signature submission
+		 * @optional If not provided, campaign will not end automatically
+		 */
+		endDate?: Date;
 		/** Number of signatures goal */
 		expectedSignatures: number;
 		/** Offline channel information

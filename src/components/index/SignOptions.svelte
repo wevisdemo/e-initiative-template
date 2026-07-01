@@ -80,12 +80,15 @@
 				<StepBlock>
 					{#snippet heading()}3. ส่งเอกสารรวบรวมรายชื่อมายัง {Config.petition
 							.offline?.headquarter.name}
-						<span class="text-error"
-							>ภายในวันที่ {Config.petition.endDate.toLocaleDateString(
-								'TH-th',
-								{ dateStyle: 'medium' },
-							)}</span
-						>{/snippet}
+						{#if Config.petition.endDate}
+							<span class="text-error"
+								>ภายในวันที่ {Config.petition.endDate.toLocaleDateString(
+									'TH-th',
+									{ dateStyle: 'medium' },
+								)}</span
+							>
+						{/if}
+					{/snippet}
 					<div class="space-y-2">
 						<p>3.1. นำส่งด้วยตัวเอง</p>
 						<HeadquarterMap />
