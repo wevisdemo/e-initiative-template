@@ -74,7 +74,7 @@ For online signature submission
    2.3. Copy the admin's User UID for the next step.
 3. Set up **Firestore Database**
    3.1 Enable the Firestore
-   3.2 Copy rules from [`firestore.rules`](firestore.rules) and update admin's UID from the previous step. (Only update rules on the console, [`firestore.rules`](firestore.rules) is used by the local emulator)
+   3.2 Copy rules from [`firestore.rules`](firestore.rules) into the console. (Only update rules on the console, [`firestore.rules`](firestore.rules) is used by the local emulator.) The rules deny all client access; reads and writes go through Cloud Functions, and admin access is checked by the `listDocuments` function using `ADMIN_EMAIL` (see the Cloudflare Turnstile section below).
 4. Obtain Firebase config
    3.1 Add a new web app from project settings > General > Your Apps
    3.2 Copy `firebaseConfig` as a one-line JSON format and put it in `PUBLIC_FIREBASE_CONFIG` of the local `.env.production` file.
@@ -102,6 +102,14 @@ ADMIN_PASSWORD=???
 4. Copy the **Secret Key** and add it to the Cloud Functions environment. If using the Firebase CLI, set it via `functions/.env`:
    ```env
    TURNSTILE_SECRET_KEY=<your-secret-key>
+   ```
+5. In the same file, add the admin email, otherwise `download:prod` fails with `Admin access required`:
+   ```env
+   ADMIN_EMAIL=<same-as-in-.env.production>
+   ```
+6. Deploy the functions (`pnpm install` builds `functions/` automatically; the `production` alias in [`.firebaserc`](.firebaserc) must point to your Firebase project):
+   ```sh
+   pnpm run deploy:functions
    ```
 
 Your `.env.production` should now include:
