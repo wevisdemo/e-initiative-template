@@ -18,7 +18,7 @@ let app: FirebaseApp;
 try {
 	app = getApp();
 } catch {
-	app = initializeApp(JSON.parse(getEnv('PUBLIC_FIREBASE_CONFIG') || '{}'));
+	app = initializeApp(parseFirebaseConfig(getEnv('PUBLIC_FIREBASE_CONFIG')));
 }
 
 const auth = getAuth();
@@ -75,6 +75,16 @@ export async function getDocuments(
 
 	const result = await listFn({ pageLimit, lastCitizenId });
 	return result.data.documents;
+}
+
+function parseFirebaseConfig(raw?: string) {
+	try {
+		return JSON.parse(raw || '{}');
+	} catch {
+		throw new Error(
+			'PUBLIC_FIREBASE_CONFIG is not valid JSON. It must be a one-line JSON object.',
+		);
+	}
 }
 
 function getEnv(key: string) {
