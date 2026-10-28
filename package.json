@@ -4,6 +4,7 @@
 	"version": "0.0.1",
 	"scripts": {
 		"dev": "concurrently npm:dev:*",
+		"dev:functions": "pnpm --filter functions run build:watch",
 		"dev:astro": "astro dev",
 		"dev:firebase": "firebase emulators:start --import ./mocks/firebase/ --project default",
 		"build": "astro build",
@@ -15,7 +16,8 @@
 		"render:watch": "node --watch --import tsx ./src/scripts/renderer.ts",
 		"check": "astro check --minimumSeverity warning",
 		"format": "prettier --write --ignore-unknown .",
-		"prepare": "husky"
+		"prepare": "husky",
+		"postinstall": "pnpm --filter functions run build"
 	},
 	"lint-staged": {
 		"README.md": "doctoc --github",
