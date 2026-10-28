@@ -1,3 +1,6 @@
+packages:
+  - functions
+
 allowBuilds:
   esbuild: true
   protobufjs: true
