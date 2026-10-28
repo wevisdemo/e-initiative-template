@@ -8,6 +8,7 @@
 		"dev:astro": "astro dev",
 		"dev:firebase": "firebase emulators:start --import ./mocks/firebase/ --project default",
 		"build": "astro build",
+		"deploy:functions": "firebase deploy --only functions --project production",
 		"preview": "astro preview",
 		"emulator:save": "firebase emulators:export ./mocks/firebase/",
 		"download:local": "NODE_ENV=development node --env-file=.env.development --import tsx ./src/scripts/downloader.ts",
