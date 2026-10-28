@@ -135,7 +135,16 @@ export const listDocuments = onCall(async (request) => {
 	}
 
 	const snapshot = await q.get();
-	const documents = snapshot.docs.map((doc) => doc.data());
+	const documents = snapshot.docs.map((doc) => {
+		const { timestamp, ...data } = doc.data();
+		return {
+			...data,
+			timestamp: {
+				seconds: timestamp.seconds,
+				nanoseconds: timestamp.nanoseconds,
+			},
+		};
+	});
 
 	return { documents };
 });
