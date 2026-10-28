@@ -7,6 +7,7 @@
 	import StepBlock from './StepBlock.svelte';
 	import PostAddress from './PostAddress.svelte';
 	import HeadquarterMap from './HeadquarterMap.svelte';
+	import { formatThaiDate } from '../../utils/date';
 
 	const Channels = {
 		Online: 'แบบออนไลน์',
@@ -82,10 +83,9 @@
 							.offline?.headquarter.name}
 						{#if Config.petition.endDate}
 							<span class="text-error"
-								>ภายในวันที่ {Config.petition.endDate.toLocaleDateString(
-									'TH-th',
-									{ dateStyle: 'medium' },
-								)}</span
+								>ภายในวันที่ {formatThaiDate(Config.petition.endDate, {
+									dateStyle: 'medium',
+								})}</span
 							>
 						{/if}
 					{/snippet}

@@ -8,6 +8,7 @@ import {
 import { signIn, getDocuments } from '../utils/firebase';
 import type { SubmittedDocument } from '../models/document';
 import { validateCitizenId } from '../utils/validater';
+import { formatThaiDate } from '../utils/date';
 import { csvFormat } from 'd3-dsv';
 import { OUTPUT_DIR, SIGNATURE_OUTPUT_PREFIX } from './constants';
 
@@ -126,9 +127,9 @@ function formatSignatoriesWithSignature({
 	date,
 	signature,
 }: (typeof signatories)[number]) {
-	const [day, month, year] = date
-		.toLocaleDateString('TH-th', { dateStyle: 'long' })
-		.split(' ');
+	const [day, month, year] = formatThaiDate(date, {
+		dateStyle: 'long',
+	}).split(' ');
 
 	return {
 		citizenId,

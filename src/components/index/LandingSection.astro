@@ -6,6 +6,7 @@ import PenIcon from '../icons/PenIcon.svelte';
 import LocationIcon from '../icons/LocationIcon.svelte';
 import TableIcon from '../icons/TableIcon.svelte';
 import { dayElapsed, isCampaignEnded } from '../../utils/campaign';
+import { formatThaiDate } from '../../utils/date';
 import { countSubmittedDocuments } from '../../utils/firebase';
 import { countOfflineSignatures } from '../../utils/sheets';
 import Sharer from '../Sharer.svelte';
@@ -49,7 +50,7 @@ const documentCount =
 						Config.petition.endDate && (
 							<>
 								(ภายใน{' '}
-								{Config.petition.endDate.toLocaleDateString('TH-th', {
+								{formatThaiDate(Config.petition.endDate, {
 									dateStyle: 'medium',
 								})}
 								)
